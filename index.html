@@ -127,13 +127,16 @@
         <button type="button" id="buscar-boton" class="boton pequeño">Buscar</button>
       </div>
       <div id="mapa" aria-label="Plano para marcar el punto"></div>
-      <p class="ayuda" id="punto-texto">Haz clic en el plano para marcar tu punto.</p>
+      <p class="ayuda" id="punto-texto">Acerca el plano hasta ver las parcelas del Catastro y haz clic dentro de la tuya.</p>
+      <p class="parcela oculto" id="parcela"></p>
       <input type="hidden" name="latitud" id="lat" required>
       <input type="hidden" name="longitud" id="lon" required>
+      <input type="hidden" name="referencia_catastral" id="rc">
+      <input type="hidden" name="parcela_catastro" id="rc-texto">
     </div>
 
     <div class="campos">
-      <label>Dirección o referencia catastral (opcional)<input type="text" name="direccion" placeholder="Calle, número, municipio"></label>
+      <label>Dirección o referencia catastral (opcional)<input type="text" name="direccion" id="direccion" placeholder="Calle, número, municipio"></label>
       <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
       <label>Teléfono<input type="tel" name="telefono" required autocomplete="tel"></label>

@@ -70,6 +70,9 @@ figcaption { font-size: 14px; color: var(--gris); margin-top: 8px; }
 .formulario { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: start; }
 .mapa-caja { position: relative; }
 #mapa { height: 460px; border-radius: 18px; border: 1px solid var(--linea); }
+.gris { filter: grayscale(1) opacity(0.55); }
+.parcela { margin: 8px 0 0; padding: 12px 14px; border-radius: 12px; background: #ECEDE2; font-size: 15px; line-height: 1.45; }
+.parcela b { color: var(--verde-oscuro); }
 .buscador { display: flex; gap: 8px; margin-bottom: 10px; }
 .buscador input { flex: 1; }
 .campos { display: grid; gap: 14px; }
