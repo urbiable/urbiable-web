@@ -31,7 +31,7 @@
   const direccion = document.getElementById("direccion"), error = document.getElementById("error");
   const fmt = n => n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-  function marcar(latlng, zoom) {
+  function marcar(latlng, zoom, conocida) {
     if (punto) punto.setLatLng(latlng); else punto = L.marker(latlng, { icon: icono, draggable: true, zIndexOffset: 1000 }).addTo(mapa);
     punto.off("dragend").on("dragend", e => marcar(e.target.getLatLng()));
     lat.value = latlng.lat.toFixed(6);
@@ -39,22 +39,25 @@
     texto.textContent = "Punto marcado. Puedes arrastrarlo para afinar.";
     error.textContent = "";
     if (zoom) mapa.setView(latlng, zoom);
-    identifica(latlng);
+    identifica(latlng, conocida);
   }
   mapa.on("click", e => marcar(e.latlng, Math.max(mapa.getZoom(), 18)));
 
   // parcela catastral del punto: referencia, dirección, superficie y contorno
-  async function identifica(latlng) {
+  async function identifica(latlng, conocida) {
     const n = ++consulta;
     rc.value = ""; rcTexto.value = "";
     if (contorno) { mapa.removeLayer(contorno); contorno = null; }
     caja.classList.remove("oculto");
     caja.textContent = "Buscando la parcela en el Catastro…";
     try {
-      const url = CATASTRO + "/OVCServWeb/OVCWcfCallejero/COVCCoordenadas.svc/json/Consulta_RCCOOR?SRS=EPSG:4326&CoorX=" + latlng.lng.toFixed(6) + "&CoorY=" + latlng.lat.toFixed(6);
-      const d = await fetch(url).then(r => r.json());
-      if (n !== consulta) return;
-      const c = d.Consulta_RCCOORResult?.coordenadas?.coord?.[0];
+      let c = conocida;
+      if (!c) {
+        const url = CATASTRO + "/OVCServWeb/OVCWcfCallejero/COVCCoordenadas.svc/json/Consulta_RCCOOR?SRS=EPSG:4326&CoorX=" + latlng.lng.toFixed(6) + "&CoorY=" + latlng.lat.toFixed(6);
+        const d = await fetch(url).then(r => r.json());
+        if (n !== consulta) return;
+        c = d.Consulta_RCCOORResult?.coordenadas?.coord?.[0];
+      }
       if (!c) {
         caja.textContent = "Ese punto no cae dentro de ninguna parcela del Catastro (puede ser la calle o una zona con catastro foral). Si es correcto, puedes enviarlo igualmente.";
         return;
@@ -95,19 +98,88 @@
     } catch (e) { /* el contorno es una ayuda visual; la referencia ya está */ }
   }
 
-  // buscador de direcciones (Nominatim, OpenStreetMap)
+  // buscador: CartoCiudad (IGN) entiende la dirección escrita y el callejero del Catastro da la parcela exacta.
+  // También admite una referencia catastral. Si todo falla, recurre a OpenStreetMap.
+  const CALLEJERO = CATASTRO + "/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/";
+  const SIGLAS = { "CALLE": "CL", "CARRER": "CL", "AVENIDA": "AV", "AVINGUDA": "AV", "CARRETERA": "CR", "PLAZA": "PZ", "PLAÇA": "PZ",
+    "PASEO": "PS", "PASSEIG": "PS", "GRAN VIA": "GV", "RAMBLA": "RB", "RONDA": "RD", "CAMINO": "CM", "CAMI": "CM", "TRAVESIA": "TR",
+    "TRAVESSERA": "TR", "PASAJE": "PJ", "PASSATGE": "PJ", "GLORIETA": "GL", "URBANIZACION": "UR", "POLIGONO": "PG", "BARRIO": "BO",
+    "CUESTA": "CU", "BULEVAR": "BV", "ALAMEDA": "AL", "PARQUE": "PQ", "SENDA": "SD", "VIA": "VI", "RIERA": "RR", "LUGAR": "LG" };
+  const VACIAS = new Set(["DE", "DEL", "LA", "LAS", "LOS", "EL", "ELS", "LES", "L", "D", "DA", "DO", "DAS", "DOS", "I", "Y", "A"]);
+  const norm = s => (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/[^A-Z0-9' ]/g, " ").replace(/\s+/g, " ").trim();
+  const palabras = s => norm(s).replace(/'/g, " ").split(" ").filter(w => w && !VACIAS.has(w));
+  const parecido = (a, b) => { const A = palabras(a), B = new Set(palabras(b)); return A.filter(w => B.has(w)).length / Math.max(A.length, B.size, 1); };
+  const larga = s => palabras(s).sort((x, y) => y.length - x.length)[0] || norm(s);
+  const json = url => fetch(url).then(r => r.json());
+  let provincias = null;
+
+  async function parcelaPorDireccion(c) {
+    if (!provincias) {
+      const p = await json(CALLEJERO + "ObtenerProvincias");
+      provincias = Object.fromEntries((p.consulta_provincieroResult?.provinciero?.prov || []).map(x => [x.cpine, x.np]));
+    }
+    const prov = provincias[c.provinceCode];
+    if (!prov) return null;
+    const m = await json(CALLEJERO + "ObtenerMunicipios?Provincia=" + encodeURIComponent(prov) + "&Municipio=" + encodeURIComponent(larga(c.muni)));
+    const munis = m.consulta_municipieroResult?.municipiero?.muni || [];
+    const muni = munis.sort((x, y) => parecido(c.muni, y.nm) - parecido(c.muni, x.nm))[0]?.nm;
+    if (!muni) return null;
+    const tipo = norm(c.tip_via), sigla = SIGLAS[tipo] || "";
+    const nombre = norm((c.address || "").split(",")[0]).replace(/\s+\d+\w*$/, "").replace(new RegExp("^" + tipo + " "), "");
+    const v = await json(CALLEJERO + "ObtenerCallejero?Provincia=" + encodeURIComponent(prov) + "&Municipio=" + encodeURIComponent(muni) + "&TipoVia=" + sigla + "&NomVia=" + encodeURIComponent(larga(nombre)));
+    const calles = (v.consulta_callejeroResult?.callejero?.calle || []).filter(x => parecido(nombre, x.dir.nv) > 0);
+    const calle = calles.sort((x, y) => parecido(nombre, y.dir.nv) - parecido(nombre, x.dir.nv))[0];
+    if (!calle) return null;
+    const d = await json(CALLEJERO + "Consulta_DNPLOC?Provincia=" + encodeURIComponent(prov) + "&Municipio=" + encodeURIComponent(muni) + "&Sigla=" + calle.dir.tv + "&Calle=" + encodeURIComponent(calle.dir.nv) + "&Numero=" + c.portalNumber);
+    const r = d.consulta_dnplocResult;
+    if (!r || r.control?.cuerr) return null;
+    const pc = JSON.stringify(r).match(/"pc1":"(\w{7})","pc2":"(\w{7})"/);
+    return pc ? pc[1] + pc[2] : null;
+  }
+
+  async function coordenadasParcela(ref) {
+    const d = await json(CATASTRO + "/OVCServWeb/OVCWcfCallejero/COVCCoordenadas.svc/json/Consulta_CPMRC?SRS=EPSG:4326&RefCat=" + ref);
+    return d.Consulta_CPMRCResult?.coordenadas?.coord?.[0] || null;
+  }
+
+  function colocaParcela(c, aviso) {
+    marcar(L.latLng(+c.geo.ycen, +c.geo.xcen), 19, c);
+    texto.textContent = aviso;
+  }
+
   const buscar = document.getElementById("buscar"), boton = document.getElementById("buscar-boton");
   async function busca() {
     const q = buscar.value.trim();
     if (!q) return;
     boton.disabled = true;
+    texto.textContent = "Buscando…";
     try {
-      const r = await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=es&q=" + encodeURIComponent(q));
-      const d = await r.json();
-      if (d.length) { mapa.setView([+d[0].lat, +d[0].lon], 18); texto.textContent = "Ahora haz clic exactamente dentro de tu parcela."; }
-      else texto.textContent = "No encontramos esa dirección. Prueba con otra o mueve el plano.";
+      const posibleRC = q.replace(/\s/g, "").toUpperCase();
+      if (/^[0-9A-Z]{14}([0-9A-Z]{6})?$/.test(posibleRC) && /\d{5}/.test(posibleRC)) {
+        const c = await coordenadasParcela(posibleRC.slice(0, 14));
+        if (c) { colocaParcela(c, "Esta es la parcela de esa referencia catastral."); return; }
+      }
+      const cc = await json("https://www.cartociudad.es/geocoder/api/geocoder/candidates?limit=1&q=" + encodeURIComponent(q)).catch(() => []);
+      const c = cc[0];
+      if (c && c.portalNumber && !c.noNumber) {
+        const ref = await parcelaPorDireccion(c).catch(() => null) || c.refCatastral;
+        const p = ref && await coordenadasParcela(ref).catch(() => null);
+        if (p) { colocaParcela(p, "Te marcamos la parcela que el Catastro asigna a esa dirección. Comprueba que es la tuya; si no, haz clic sobre la correcta."); return; }
+        mapa.setView([c.lat, c.lng], 19);
+        texto.textContent = "Ahora haz clic exactamente dentro de tu parcela.";
+        return;
+      }
+      if (c && c.lat && c.lng) {
+        mapa.setView([c.lat, c.lng], /muni|poblacion|provincia/i.test(c.type) ? 15 : 17);
+        texto.textContent = "Añade el número o haz clic exactamente dentro de tu parcela.";
+        return;
+      }
+      const d = await json("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=es&q=" + encodeURIComponent(q));
+      const zona = d.length && /city|town|village|municipality|county|state|province|suburb|hamlet/.test(d[0].addresstype || d[0].type);
+      if (d.length) { mapa.setView([+d[0].lat, +d[0].lon], zona ? 15 : 18); texto.textContent = zona ? "Acerca el plano a tu calle o añade la dirección completa." : "Ahora haz clic exactamente dentro de tu parcela."; }
+      else texto.textContent = "No encontramos esa dirección. Prueba con otra, con la referencia catastral o mueve el plano.";
     } catch (e) { texto.textContent = "No se pudo buscar ahora. Mueve el plano a mano."; }
-    boton.disabled = false;
+    finally { boton.disabled = false; }
   }
   boton.addEventListener("click", busca);
   buscar.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); busca(); } });
