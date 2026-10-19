@@ -6,8 +6,12 @@
 <title>URBIABLE · Qué puedes construir en cualquier punto del plano</title>
 <meta name="description" content="Marca un punto sobre el plano y te decimos qué puedes construir ahí: altura, plantas, metros, viviendas. Ficha gratis en menos de 24 horas, con datos oficiales y en 3D.">
 <link rel="icon" href="assets/img/icono.png">
+<link rel="alternate" hreflang="es" href="https://urbiable.com/">
+<link rel="alternate" hreflang="ca" href="https://urbiable.com/ca/">
+<link rel="alternate" hreflang="en" href="https://urbiable.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://urbiable.com/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="assets/estilo.css?v=20261019b">
+<link rel="stylesheet" href="assets/estilo.css?v=20261020a">
 </head>
 <body>
 
@@ -18,6 +22,7 @@
     <a href="#caso">Caso real</a>
     <a href="#fases">Qué recibes</a>
     <a class="boton pequeño" href="#pide">Pide tu ficha</a>
+    <span class="idiomas"><a href="/" aria-current="page">ES</a><a href="/ca/" hreflang="ca" lang="ca">CA</a><a href="/en/" hreflang="en" lang="en">EN</a></span>
   </nav>
 </header>
 
@@ -146,6 +151,8 @@
         <label class="opcion"><input type="radio" name="entrega" value="instagram"> Por mensaje de Instagram</label>
         <input type="text" name="instagram" id="instagram" placeholder="Tu usuario de Instagram (@...)" class="oculto">
       </fieldset>
+      <label>Idioma de tu ficha<select name="idioma_ficha"><option value="castellano" selected>Castellano</option><option value="catalán">Català</option><option value="inglés">English</option></select></label>
+      <input type="hidden" name="idioma_web" value="castellano">
       <label>¿Algo que debamos saber? (opcional)<textarea name="comentario" rows="3" placeholder="Qué te gustaría hacer, si es para comprar o vender…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</label>
       <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email (opcional).</label>
@@ -162,10 +169,10 @@
   <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
   <p>Urbanismo claro, en 3D · <a href="mailto:hola@urbiable.com">hola@urbiable.com</a> · <a href="https://www.instagram.com/urbiable/">@urbiable</a></p>
   <p class="legal-enlaces"><a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a></p>
-  <p class="creditos">Mapa: © colaboradores de OpenStreetMap · Ortofoto PNOA cedida por © Instituto Geográfico Nacional</p>
+  <p class="creditos">Mapa: © colaboradores de OpenStreetMap · Ortofoto PNOA cedida por © Instituto Geográfico Nacional · Parcelario © Dirección General del Catastro</p>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/mapa.js?v=20261019b"></script>
+<script src="assets/mapa.js?v=20261020a"></script>
 </body>
 </html>
