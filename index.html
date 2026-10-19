@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URBIABLE · Qué puedes construir en cualquier punto del plano</title>
+<meta name="description" content="Marca un punto sobre el plano y te decimos qué puedes construir ahí: altura, plantas, metros, viviendas. Ficha gratis en menos de 24 horas, con datos oficiales y en 3D.">
+<link rel="icon" href="assets/img/icono.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="assets/estilo.css">
+</head>
+<body>
+
+<header class="cab">
+  <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
+  <nav>
+    <a href="#como">Cómo funciona</a>
+    <a href="#caso">Caso real</a>
+    <a href="#fases">Qué recibes</a>
+    <a class="boton pequeño" href="#pide">Pide tu ficha</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- 1 · Portada -->
+<section id="inicio" class="portada">
+  <div class="portada-texto">
+    <p class="antetitulo">Urbanismo claro, en 3D</p>
+    <h1>Tú marcas un punto sobre el plano.<br><span>Nosotros te decimos qué puedes hacer ahí.</span></h1>
+    <p class="entrada">Altura, plantas, metros construibles, viviendas y usos de cualquier solar, parcela o inmueble, con datos oficiales y explicado en un vídeo 3D. La primera ficha es gratis y llega en menos de 24 horas.</p>
+    <div class="acciones">
+      <a class="boton" href="#caso">Mira un caso real</a>
+      <a class="boton secundario" href="#pide">Marca tu punto</a>
+    </div>
+  </div>
+  <div class="portada-video">
+    <video src="assets/video/presentacion.mp4" poster="assets/img/poster.jpg" controls playsinline preload="none"></video>
+  </div>
+</section>
+
+<!-- 2 · Cómo funciona -->
+<section id="como" class="bloque">
+  <p class="antetitulo">Cómo funciona</p>
+  <h2>Cuatro pasos, sin papeleo</h2>
+  <ol class="pasos">
+    <li><span class="num">1</span><h3>Marcas un punto</h3><p>Sobre el plano, o nos das la dirección o la referencia catastral.</p></li>
+    <li><span class="num">2</span><h3>Localizamos tu parcela</h3><p>Con su geometría oficial del Catastro: la parcela exacta, nunca la de al lado.</p></li>
+    <li><span class="num">3</span><h3>Aplicamos la normativa</h3><p>El planeamiento vigente de ese lugar, artículo por artículo.</p></li>
+    <li><span class="num">4</span><h3>Te lo enseñamos en 3D</h3><p>Un vídeo y un PDF con todo lo que permite la norma, fácil de entender.</p></li>
+  </ol>
+</section>
+
+<!-- 3 · Caso real -->
+<section id="caso" class="bloque claro">
+  <p class="antetitulo">Caso real</p>
+  <h2>Esto es lo que recibirías</h2>
+  <p class="entrada">Un solar entre medianeras de 194,45 m² en suelo urbano. Ocultamos la dirección para proteger a su propietario.</p>
+  <div class="caso">
+    <figure><img src="assets/img/envolvente.jpg" alt="Volumen máximo que permite la norma, dibujado en 3D sobre el solar y acotado"><figcaption>El volumen que permite la norma, en 3D y acotado</figcaption></figure>
+    <div class="cifras">
+      <div><b>16,70 m</b><span>altura reguladora máxima</span></div>
+      <div><b>PB+4</b><span>plantas a calle</span></div>
+      <div><b>13,00 m</b><span>profundidad edificable</span></div>
+      <div><b>606,99 m²</b><span>de techo máximo</span></div>
+      <div><b>3</b><span>viviendas como máximo</span></div>
+      <div><b>91,24 m²</b><span>de planta baja en el patio de manzana</span></div>
+    </div>
+  </div>
+  <div class="caso-pie">
+    <figure><img src="assets/img/planta.jpg" alt="Planta del solar con sus medidas"><figcaption>La parcela, con sus medidas exactas</figcaption></figure>
+    <figure><img src="assets/img/axonometria.jpg" alt="El solar en 3D, visto desde la calle"><figcaption>El solar y su entorno, desde la calle</figcaption></figure>
+  </div>
+  <p class="nota">Cada dato lleva su fuente y su artículo. La ficha incluye también el emplazamiento, los vecinos, la conectividad y los planes que afectan a la parcela.</p>
+  <a class="boton" href="#pide">Quiero la de mi punto</a>
+</section>
+
+<!-- 4 · Qué recibes -->
+<section id="fases" class="bloque">
+  <p class="antetitulo">Qué recibes</p>
+  <h2>De la duda a la decisión</h2>
+  <div class="fases">
+    <article class="fase destacada">
+      <span class="etiqueta">Gratis · menos de 24 h</span>
+      <h3>Ficha de tu punto</h3>
+      <p>Todo lo que dice la normativa sobre tu parcela: altura, plantas, profundidad, techo máximo, viviendas, usos y aparcamiento. En vídeo 3D y PDF.</p>
+    </article>
+    <article class="fase">
+      <span class="etiqueta">Firmado por arquitecto</span>
+      <h3>Informe de posibilidades</h3>
+      <p>La ficha te dice qué permite la norma. El informe te dice qué te conviene hacer: opciones comparadas, casos especiales, verificación y una recomendación clara.</p>
+    </article>
+    <article class="fase">
+      <span class="etiqueta">A medida</span>
+      <h3>Estudio económico</h3>
+      <p>Anteproyecto, cuánto cuesta construirlo, cuánto vale y si sale a cuenta.</p>
+    </article>
+    <article class="fase">
+      <span class="etiqueta">Llave en mano</span>
+      <h3>Proyecto</h3>
+      <p>Si decides seguir adelante, el mismo equipo de arquitectos redacta el proyecto y dirige la obra.</p>
+    </article>
+  </div>
+</section>
+
+<!-- 5 · Confianza -->
+<section class="bloque claro confianza">
+  <div><h3>Datos oficiales</h3><p>Catastro y planeamiento vigente, consultados en el momento.</p></div>
+  <div><h3>Cada dato con su artículo</h3><p>Todo es verificable: sabrás de dónde sale cada número.</p></div>
+  <div><h3>Arquitectos colegiados</h3><p>Revisan y firman todo lo que se entrega con firma.</p></div>
+</section>
+
+<!-- 6 · Formulario -->
+<section id="pide" class="bloque">
+  <p class="antetitulo">Pide tu ficha gratis</p>
+  <h2>Marca tu punto sobre el plano</h2>
+  <form class="formulario" action="https://formsubmit.co/hola@urbiable.com" method="POST" id="form">
+    <input type="hidden" name="_subject" value="Nueva petición de ficha · URBIABLE">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="_next" value="https://urbiable.com/gracias.html">
+    <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off">
+
+    <div class="mapa-caja">
+      <div class="buscador">
+        <input type="search" id="buscar" placeholder="Busca una dirección o un municipio" autocomplete="off">
+        <button type="button" id="buscar-boton" class="boton pequeño">Buscar</button>
+      </div>
+      <div id="mapa" aria-label="Plano para marcar el punto"></div>
+      <p class="ayuda" id="punto-texto">Haz clic en el plano para marcar tu punto.</p>
+      <input type="hidden" name="latitud" id="lat" required>
+      <input type="hidden" name="longitud" id="lon" required>
+    </div>
+
+    <div class="campos">
+      <label>Dirección o referencia catastral (opcional)<input type="text" name="direccion" placeholder="Calle, número, municipio"></label>
+      <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
+      <label>Email<input type="email" name="email" required autocomplete="email"></label>
+      <label>Teléfono<input type="tel" name="telefono" required autocomplete="tel"></label>
+      <fieldset>
+        <legend>¿Dónde quieres recibir tu videoficha?</legend>
+        <label class="opcion"><input type="radio" name="entrega" value="email" checked> Por email</label>
+        <label class="opcion"><input type="radio" name="entrega" value="instagram"> Por mensaje de Instagram</label>
+        <input type="text" name="instagram" id="instagram" placeholder="Tu usuario de Instagram (@...)" class="oculto">
+      </fieldset>
+      <label>¿Algo que debamos saber? (opcional)<textarea name="comentario" rows="3" placeholder="Qué te gustaría hacer, si es para comprar o vender…"></textarea></label>
+      <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</label>
+      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email (opcional).</label>
+      <p class="error" id="error" role="alert"></p>
+      <button type="submit" class="boton">Pedir mi ficha gratis</button>
+      <p class="ayuda">Te la enviamos en menos de 24 horas. Sin compromiso.</p>
+    </div>
+  </form>
+</section>
+
+</main>
+
+<footer class="pie">
+  <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
+  <p>Urbanismo claro, en 3D · <a href="mailto:hola@urbiable.com">hola@urbiable.com</a> · <a href="https://www.instagram.com/urbiable/">@urbiable</a></p>
+  <p class="legal-enlaces"><a href="aviso-legal.html">Aviso legal</a> · <a href="privacidad.html">Privacidad</a></p>
+  <p class="creditos">Mapa: © colaboradores de OpenStreetMap · Ortofoto PNOA cedida por © Instituto Geográfico Nacional</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="assets/mapa.js"></script>
+</body>
+</html>
