@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URBIABLE · Què pots fer a qualsevol punt del plànol</title>
+<meta name="description" content="Marca un punt sobre el plànol (solar, terreny, pis, local o nau) i t'enviem un vídeo-informe amb el que s'hi permet. Gratis, amb dades oficials i en menys de 24 hores.">
+<link rel="icon" href="/assets/img/icono.png">
+<link rel="alternate" hreflang="es" href="https://urbiable.com/nueva/">
+<link rel="alternate" hreflang="ca" href="https://urbiable.com/nueva/ca/">
+<link rel="alternate" hreflang="en" href="https://urbiable.com/nueva/en/">
+<link rel="alternate" hreflang="x-default" href="https://urbiable.com/nueva/">
+<link rel="preload" href="/nueva/assets/fuentes/Archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/nueva/assets/estilo.css?v=20261027b">
+</head>
+<body>
+
+<header class="cab">
+  <a class="logo" href="#inicio" aria-label="urbiable, inici"><b>urb</b>iable<sup>©</sup></a>
+  <nav aria-label="Seccions">
+    <a href="#como">Com funciona</a>
+    <a href="#caso">Cas real</a>
+    <a href="#fases">Què reps</a>
+    <span class="idiomas"><a href="/nueva/" hreflang="es" lang="es">ES</a><a href="/nueva/ca/" aria-current="page">CA</a><a href="/nueva/en/" hreflang="en" lang="en">EN</a></span>
+  </nav>
+</header>
+
+<main>
+
+<section id="inicio" class="hoja hoja-portada" aria-labelledby="titulo">
+  <div class="marco">
+    <span class="coord coord-x" aria-hidden="true">λ <span data-coord="lon">2,162000</span></span>
+    <span class="coord coord-y" aria-hidden="true">φ <span data-coord="lat">41,391500</span></span>
+    <svg class="norte" viewBox="0 0 28 44" width="28" height="44" aria-hidden="true"><path d="M14 2 L22 26 L14 21 L6 26 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter"/><path d="M14 2 L14 21 L6 26 Z" fill="currentColor"/><text x="14" y="41" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">N</text></svg>
+    <div id="mapa" aria-label="Plànol del Cadastre per marcar el teu punt"></div>
+
+    <div class="consulta">
+      <h1 id="titulo">Què hi pots fer, aquí?</h1>
+      <p class="lema">Tu marques un punt sobre el plànol. Nosaltres et diem què hi pots fer.</p>
+      <div class="buscador">
+        <label class="solo-lector" for="buscar">Adreça, municipi o referència cadastral</label>
+        <input type="search" id="buscar" placeholder="Adreça o ref. cadastral" autocomplete="off">
+        <button type="button" id="buscar-boton" class="boton boton-linea">Cerca</button>
+      </div>
+      <ol class="maneras">
+        <li><b>A</b> Escriu l'adreça</li>
+        <li><b>B</b> o la referència cadastral</li>
+        <li><b>C</b> o fes clic a la teva parcel·la</li>
+      </ol>
+      <p class="ayuda" id="punto-texto" aria-live="polite">Serveix qualsevol punt: solar, terreny, pis, local o nau.</p>
+      <p class="parcela oculto" id="parcela" aria-live="polite"></p>
+    </div>
+
+    <div class="cajetin">
+      <div class="celda celda-marca"><span class="logo"><b>urb</b>iable<sup>©</sup></span><span class="rotulo">Full de consulta urbanística</span></div>
+      <div class="celda"><span class="rotulo">Dades</span>Cadastre i planejament vigent</div>
+      <div class="celda"><span class="rotulo">Lliurament</span>Vídeo-informe en menys de 24 h</div>
+      <a class="celda celda-video" href="#como"><span class="rotulo">Detall 1</span>Mira com funciona · 37 s</a>
+      <a class="boton boton-cta" href="#pide" data-cta>Genera el teu vídeo-informe GRATIS</a>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="seccion" aria-labelledby="como-titulo">
+  <figure class="detalle detalle-video">
+    <figcaption class="rotulo">Detall 1 · Vídeo de presentació</figcaption>
+    <video src="/nueva/assets/video/presentacion-v5.mp4" poster="/nueva/assets/img/poster-v5.jpg" controls playsinline preload="none"></video>
+  </figure>
+  <div class="como-texto">
+    <h2 id="como-titulo">Dones la ubicació. Reps el teu vídeo-informe.</h2>
+    <ol class="pasos">
+      <li><span class="num">1</span><div><h3>Dones la ubicació</h3><p>Amb l'adreça, la referència cadastral o un clic al plànol. Localitzem la parcel·la exacta amb la geometria oficial del Cadastre, mai la del costat.</p></div></li>
+      <li><span class="num">2</span><div><h3>Creuem les fonts oficials</h3><p>Cadastre, planejament vigent i ordenances d'aquell municipi, article per article. Segons què sigui, un solar, un pis o una nau, busquem el que hi aplica.</p></div></li>
+      <li><span class="num">3</span><div><h3>Reps el teu vídeo-informe</h3><p>El que s'hi permet, en un vídeo 3D fàcil d'entendre: paràmetres, usos permesos, geometria edificable i nombre d'habitatges.</p></div></li>
+    </ol>
+    <div class="leyenda" aria-label="Llegenda">
+      <p class="rotulo">Llegenda</p>
+      <p><span class="muestra muestra-continua" aria-hidden="true"></span>Línia contínua: dada segura, de font oficial.</p>
+      <p><span class="muestra muestra-discontinua" aria-hidden="true"></span>Línia discontínua: pendent de confirmar; mai la donem per bona.</p>
+      <p><span class="muestra muestra-verde" aria-hidden="true"></span>Verd: el que hi pots construir.</p>
+    </div>
+  </div>
+</section>
+
+<section id="caso" class="hoja hoja-caso" aria-labelledby="caso-titulo">
+  <div class="marco">
+    <div class="caso-cabecera">
+      <h2 id="caso-titulo">Un cas real, xifra a xifra</h2>
+      <p>Un solar entre mitgeres en sòl urbà. Amaguem l'adreça per protegir-ne el propietari.</p>
+    </div>
+    <div class="caso">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detall 2 · Volum màxim que permet la norma</figcaption>
+        <img src="/nueva/assets/img/caso-volumen.jpg" width="900" height="1000" alt="El volum màxim que permet la norma, en verd, dibuixat en 3D sobre el solar amb les seves cinc plantes" loading="lazy">
+      </figure>
+      <div class="caso-datos">
+      <table class="cuadro">
+        <caption class="solo-lector">Quadre de dades del cas real</caption>
+        <thead><tr><th scope="col">Concepte</th><th scope="col">Valor</th><th scope="col">Font</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Superfície de parcel·la</th><td>194,00 m²</td><td><span class="fuente">Cadastre</span></td></tr>
+          <tr><th scope="row">Alçada reguladora màxima</th><td>16,70 m</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Plantes a carrer</th><td>PB+4</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Profunditat edificable</th><td>13,00 m</td><td><span class="fuente">art. 242 · plànol</span></td></tr>
+          <tr class="clave"><th scope="row">Sostre màxim</th><td>606,99 m²</td><td><span class="fuente">arts. 242-243 i 322</span></td></tr>
+          <tr class="clave"><th scope="row">Habitatges com a màxim</th><td>3</td><td><span class="fuente">art. 323 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Planta baixa al pati d'illa</th><td>91,24 m²</td><td><span class="fuente">art. 243 NNUU PGM</span></td></tr>
+        </tbody>
+      </table>
+        <div class="caso-accion">
+          <p>Cada xifra porta la seva font. El vídeo-informe inclou també l'emplaçament, els veïns, la connectivitat i els plans que afecten la parcel·la.</p>
+          <a class="boton boton-cta" href="#pide" data-cta>Genera el teu vídeo-informe GRATIS</a>
+        </div>
+      </div>
+    </div>
+    <div class="caso-pie">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detall 3 · La parcel·la, amb les seves mides</figcaption>
+        <img src="/assets/img/planta.jpg" alt="Planta de la parcel·la amb la longitud de cada costat" loading="lazy">
+      </figure>
+      <figure class="detalle">
+        <figcaption class="rotulo">Detall 4 · El solar i el seu entorn</figcaption>
+        <img src="/assets/img/axonometria.jpg" alt="El solar en 3D, vist des del carrer" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="fases" class="seccion" aria-labelledby="fases-titulo">
+  <h2 id="fases-titulo">Del dubte a la decisió</h2>
+  <ol class="recorrido">
+    <li class="estacion estacion-activa"><span class="parada" aria-hidden="true"></span><h3>Vídeo-informe</h3><p class="dato">Gratis · menys de 24 h</p><p>El que es permet al teu punt: paràmetres, usos, geometria edificable i habitatges. En vídeo 3D, només amb dades segures.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Informe de possibilitats</h3><p class="dato">Signat per arquitecte</p><p>El vídeo-informe diu què permet la norma; l'informe diu què et convé fer: opcions comparades, verificació i una recomanació clara.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Estudi complet</h3><p class="dato">A mida</p><p>Avantprojecte, quant costa construir-lo, quant val i si surt a compte.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Projecte</h3><p class="dato">Clau en mà</p><p>Si decideixes tirar endavant, el mateix equip d'arquitectes redacta el projecte i dirigeix l'obra.</p></li>
+  </ol>
+  <ul class="garantias">
+    <li><h3>Dades oficials</h3><p>Cadastre i planejament vigent, consultats en el moment.</p></li>
+    <li><h3>Cada xifra amb el seu article</h3><p>Tot és verificable: sabràs d'on surt cada número.</p></li>
+    <li><h3>Arquitectes col·legiats</h3><p>Revisen i signen tot el que es lliura amb signatura.</p></li>
+  </ul>
+</section>
+
+<section id="pide" class="hoja hoja-datos" aria-labelledby="pide-titulo">
+  <div class="marco">
+    <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
+      <input type="hidden" name="_subject" value="Nueva petición de vídeo-informe · URBIABLE (web nueva, en catalán)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="https://urbiable.com/nueva/ca/gracies.html">
+      <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="latitud" id="lat" required>
+      <input type="hidden" name="longitud" id="lon" required>
+      <input type="hidden" name="referencia_catastral" id="rc">
+      <input type="hidden" name="parcela_catastro" id="rc-texto">
+
+      <div class="datos-cabecera">
+        <h2 id="pide-titulo">A qui enviem el teu vídeo-informe?</h2>
+        <div class="tu-punto">
+          <p class="rotulo">El teu punt</p>
+          <p id="resumen-punto">Encara no has marcat cap punt.</p>
+          <a href="#inicio" data-volver>Marcar o canviar al plànol</a>
+        </div>
+      </div>
+
+      <div class="campos">
+        <label>Adreça o referència cadastral (opcional)<input type="text" name="direccion" id="direccion" placeholder="Carrer, número, municipi"></label>
+        <label>Nom<input type="text" name="nombre" required autocomplete="name"></label>
+        <label>Correu electrònic<input type="email" name="email" required autocomplete="email"></label>
+        <label>Telèfon<input type="tel" name="telefono" required autocomplete="tel"></label>
+        <fieldset>
+          <legend>On vols rebre el teu vídeo-informe?</legend>
+          <label class="opcion"><input type="radio" name="entrega" value="email" checked> Per correu electrònic</label>
+          <label class="opcion"><input type="radio" name="entrega" value="instagram"> Per missatge d'Instagram</label>
+          <input type="text" name="instagram" id="instagram" placeholder="El teu usuari d'Instagram (@...)" class="oculto" aria-label="El teu usuari d'Instagram">
+        </fieldset>
+        <label>Idioma del teu vídeo-informe<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán" selected>Català</option><option value="inglés">English</option></select></label>
+        <input type="hidden" name="idioma_web" value="catalán">
+        <label class="ancho">Hi ha alguna cosa que hàgim de saber? (opcional)<textarea name="comentario" rows="3" placeholder="Què t'agradaria fer, si és per comprar o vendre…"></textarea></label>
+        <label class="opcion legal ancho"><input type="checkbox" name="privacidad" value="acepto" required> He llegit i accepto la <a href="/ca/privacitat.html" target="_blank">política de privacitat</a>.</label>
+        <label class="opcion legal ancho"><input type="checkbox" name="novedades" value="si"> Vull rebre novetats i casos d'URBIABLE per correu electrònic (opcional).</label>
+        <p class="error ancho" id="error" role="alert"></p>
+        <div class="enviar ancho">
+          <button type="submit" class="boton boton-cta">Genera el teu vídeo-informe GRATIS</button>
+          <p class="ayuda">Te l'enviem en menys de 24 hores. Sense compromís.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
+  <p><a href="mailto:hola@urbiable.com">hola@urbiable.com</a> · <a href="https://www.instagram.com/urbiable/">@urbiable</a> · <a href="/ca/avis-legal.html">Avís legal</a> · <a href="/ca/privacitat.html">Privacitat</a></p>
+  <p class="creditos">Mapa: © col·laboradors d'OpenStreetMap · Ortofoto PNOA cedida per © Institut Geogràfic Nacional · Parcel·lari © Direcció General del Cadastre</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/nueva/assets/mapa.js?v=20261027b"></script>
+</body>
+</html>

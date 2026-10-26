@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URBIABLE · What you can do at any point on the map</title>
+<meta name="description" content="Mark a point on the map (plot, land, flat, shop or warehouse) and we send you a video report of what is allowed there. Free, with official data, within 24 hours.">
+<link rel="icon" href="/assets/img/icono.png">
+<link rel="alternate" hreflang="es" href="https://urbiable.com/nueva/">
+<link rel="alternate" hreflang="ca" href="https://urbiable.com/nueva/ca/">
+<link rel="alternate" hreflang="en" href="https://urbiable.com/nueva/en/">
+<link rel="alternate" hreflang="x-default" href="https://urbiable.com/nueva/">
+<link rel="preload" href="/nueva/assets/fuentes/Archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/nueva/assets/estilo.css?v=20261027b">
+</head>
+<body>
+
+<header class="cab">
+  <a class="logo" href="#inicio" aria-label="urbiable, home"><b>urb</b>iable<sup>©</sup></a>
+  <nav aria-label="Sections">
+    <a href="#como">How it works</a>
+    <a href="#caso">Real case</a>
+    <a href="#fases">What you get</a>
+    <span class="idiomas"><a href="/nueva/" hreflang="es" lang="es">ES</a><a href="/nueva/ca/" hreflang="ca" lang="ca">CA</a><a href="/nueva/en/" aria-current="page">EN</a></span>
+  </nav>
+</header>
+
+<main>
+
+<section id="inicio" class="hoja hoja-portada" aria-labelledby="titulo">
+  <div class="marco">
+    <span class="coord coord-x" aria-hidden="true">λ <span data-coord="lon">2,162000</span></span>
+    <span class="coord coord-y" aria-hidden="true">φ <span data-coord="lat">41,391500</span></span>
+    <svg class="norte" viewBox="0 0 28 44" width="28" height="44" aria-hidden="true"><path d="M14 2 L22 26 L14 21 L6 26 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter"/><path d="M14 2 L14 21 L6 26 Z" fill="currentColor"/><text x="14" y="41" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">N</text></svg>
+    <div id="mapa" aria-label="Cadastre map to mark your point"></div>
+
+    <div class="consulta">
+      <h1 id="titulo">What can you do here?</h1>
+      <p class="lema">You mark a point on the map. We tell you what you can do there.</p>
+      <div class="buscador">
+        <label class="solo-lector" for="buscar">Address, town or cadastral reference</label>
+        <input type="search" id="buscar" placeholder="Address or cadastral ref." autocomplete="off">
+        <button type="button" id="buscar-boton" class="boton boton-linea">Search</button>
+      </div>
+      <ol class="maneras">
+        <li><b>A</b> Type the address</li>
+        <li><b>B</b> or the cadastral reference</li>
+        <li><b>C</b> or click on your plot</li>
+      </ol>
+      <p class="ayuda" id="punto-texto" aria-live="polite">Any point works: plot, land, flat, shop or warehouse.</p>
+      <p class="parcela oculto" id="parcela" aria-live="polite"></p>
+    </div>
+
+    <div class="cajetin">
+      <div class="celda celda-marca"><span class="logo"><b>urb</b>iable<sup>©</sup></span><span class="rotulo">Planning enquiry sheet</span></div>
+      <div class="celda"><span class="rotulo">Data</span>Cadastre and current planning</div>
+      <div class="celda"><span class="rotulo">Delivery</span>Video report within 24 h</div>
+      <a class="celda celda-video" href="#como"><span class="rotulo">Detail 1</span>See how it works · 37 s</a>
+      <a class="boton boton-cta" href="#pide" data-cta>Generate your FREE video report</a>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="seccion" aria-labelledby="como-titulo">
+  <figure class="detalle detalle-video">
+    <figcaption class="rotulo">Detail 1 · Presentation video (in Spanish)</figcaption>
+    <video src="/nueva/assets/video/presentacion-v5.mp4" poster="/nueva/assets/img/poster-v5.jpg" controls playsinline preload="none"></video>
+  </figure>
+  <div class="como-texto">
+    <h2 id="como-titulo">You give the location. You get your video report.</h2>
+    <ol class="pasos">
+      <li><span class="num">1</span><div><h3>You give the location</h3><p>With the address, the cadastral reference or a click on the map. We find the exact plot with the Cadastre's official geometry, never the one next door.</p></div></li>
+      <li><span class="num">2</span><div><h3>We cross-check official sources</h3><p>Cadastre, current planning and that town's bylaws, article by article. Depending on what it is, a plot, a flat or a warehouse, we look up what applies.</p></div></li>
+      <li><span class="num">3</span><div><h3>You get your video report</h3><p>What is allowed there, in an easy 3D video: parameters, permitted uses, buildable geometry and number of homes.</p></div></li>
+    </ol>
+    <div class="leyenda" aria-label="Key">
+      <p class="rotulo">Key</p>
+      <p><span class="muestra muestra-continua" aria-hidden="true"></span>Solid line: certain figure, from an official source.</p>
+      <p><span class="muestra muestra-discontinua" aria-hidden="true"></span>Dashed line: still to be confirmed; we never take it as given.</p>
+      <p><span class="muestra muestra-verde" aria-hidden="true"></span>Green: what you can build.</p>
+    </div>
+  </div>
+</section>
+
+<section id="caso" class="hoja hoja-caso" aria-labelledby="caso-titulo">
+  <div class="marco">
+    <div class="caso-cabecera">
+      <h2 id="caso-titulo">A real case, figure by figure</h2>
+      <p>A terraced plot on urban land. We hide the address to protect its owner.</p>
+    </div>
+    <div class="caso">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detail 2 · Maximum volume the rules allow</figcaption>
+        <img src="/nueva/assets/img/caso-volumen.jpg" width="900" height="1000" alt="The maximum volume the rules allow, in green, drawn in 3D on the plot with its five storeys" loading="lazy">
+      </figure>
+      <div class="caso-datos">
+      <table class="cuadro">
+        <caption class="solo-lector">Data table for the real case</caption>
+        <thead><tr><th scope="col">Item</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Plot area</th><td>194.00 m²</td><td><span class="fuente">Cadastre</span></td></tr>
+          <tr><th scope="row">Maximum regulatory height</th><td>16.70 m</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Storeys on the street</th><td>Ground + 4</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Buildable depth</th><td>13.00 m</td><td><span class="fuente">art. 242 · plan</span></td></tr>
+          <tr class="clave"><th scope="row">Maximum floor area</th><td>606.99 m²</td><td><span class="fuente">arts. 242-243 and 322</span></td></tr>
+          <tr class="clave"><th scope="row">Homes at most</th><td>3</td><td><span class="fuente">art. 323 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Ground floor in the block's courtyard</th><td>91.24 m²</td><td><span class="fuente">art. 243 NNUU PGM</span></td></tr>
+        </tbody>
+      </table>
+        <div class="caso-accion">
+          <p>Every figure carries its source. The video report also covers the location, the neighbouring buildings, connectivity and the plans that affect the plot.</p>
+          <a class="boton boton-cta" href="#pide" data-cta>Generate your FREE video report</a>
+        </div>
+      </div>
+    </div>
+    <div class="caso-pie">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detail 3 · The plot, with its dimensions</figcaption>
+        <img src="/assets/img/planta.jpg" alt="Plan of the plot with the length of each side" loading="lazy">
+      </figure>
+      <figure class="detalle">
+        <figcaption class="rotulo">Detail 4 · The plot and its surroundings</figcaption>
+        <img src="/assets/img/axonometria.jpg" alt="The plot in 3D, seen from the street" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="fases" class="seccion" aria-labelledby="fases-titulo">
+  <h2 id="fases-titulo">From doubt to decision</h2>
+  <ol class="recorrido">
+    <li class="estacion estacion-activa"><span class="parada" aria-hidden="true"></span><h3>Video report</h3><p class="dato">Free · within 24 h</p><p>What is allowed at your point: parameters, uses, buildable geometry and homes. In 3D video, with certain data only.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Options report</h3><p class="dato">Signed by an architect</p><p>The video report says what the rules allow; the report says what is best for you: compared options, verification and a clear recommendation.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Full study</h3><p class="dato">Tailored</p><p>Preliminary design, how much it costs to build, what it is worth and whether it pays off.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Project</h3><p class="dato">Turnkey</p><p>If you decide to go ahead, the same team of architects draws up the project and manages the works.</p></li>
+  </ol>
+  <ul class="garantias">
+    <li><h3>Official data</h3><p>Cadastre and current planning, checked at the time.</p></li>
+    <li><h3>Every figure with its article</h3><p>Everything is verifiable: you will know where each number comes from.</p></li>
+    <li><h3>Registered architects</h3><p>They review and sign everything that is delivered with a signature.</p></li>
+  </ul>
+</section>
+
+<section id="pide" class="hoja hoja-datos" aria-labelledby="pide-titulo">
+  <div class="marco">
+    <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
+      <input type="hidden" name="_subject" value="Nueva petición de vídeo-informe · URBIABLE (web nueva, en inglés)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="https://urbiable.com/nueva/en/thanks.html">
+      <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="latitud" id="lat" required>
+      <input type="hidden" name="longitud" id="lon" required>
+      <input type="hidden" name="referencia_catastral" id="rc">
+      <input type="hidden" name="parcela_catastro" id="rc-texto">
+
+      <div class="datos-cabecera">
+        <h2 id="pide-titulo">Who should we send your video report to?</h2>
+        <div class="tu-punto">
+          <p class="rotulo">Your point</p>
+          <p id="resumen-punto">You have not marked a point yet.</p>
+          <a href="#inicio" data-volver>Mark or change it on the map</a>
+        </div>
+      </div>
+
+      <div class="campos">
+        <label>Address or cadastral reference (optional)<input type="text" name="direccion" id="direccion" placeholder="Street, number, town"></label>
+        <label>Name<input type="text" name="nombre" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Phone<input type="tel" name="telefono" required autocomplete="tel"></label>
+        <fieldset>
+          <legend>Where would you like to receive your video report?</legend>
+          <label class="opcion"><input type="radio" name="entrega" value="email" checked> By email</label>
+          <label class="opcion"><input type="radio" name="entrega" value="instagram"> By Instagram message</label>
+          <input type="text" name="instagram" id="instagram" placeholder="Your Instagram username (@...)" class="oculto" aria-label="Your Instagram username">
+        </fieldset>
+        <label>Language of your video report<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán">Català</option><option value="inglés" selected>English</option></select></label>
+        <input type="hidden" name="idioma_web" value="inglés">
+        <label class="ancho">Anything we should know? (optional)<textarea name="comentario" rows="3" placeholder="What you would like to do, whether you are buying or selling…"></textarea></label>
+        <label class="opcion legal ancho"><input type="checkbox" name="privacidad" value="acepto" required> I have read and accept the <a href="/en/privacy.html" target="_blank">privacy policy</a>.</label>
+        <label class="opcion legal ancho"><input type="checkbox" name="novedades" value="si"> I would like to receive URBIABLE news and cases by email (optional).</label>
+        <p class="error ancho" id="error" role="alert"></p>
+        <div class="enviar ancho">
+          <button type="submit" class="boton boton-cta">Generate your FREE video report</button>
+          <p class="ayuda">We send it within 24 hours. No commitment.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
+  <p><a href="mailto:hola@urbiable.com">hola@urbiable.com</a> · <a href="https://www.instagram.com/urbiable/">@urbiable</a> · <a href="/en/legal-notice.html">Legal notice</a> · <a href="/en/privacy.html">Privacy</a></p>
+  <p class="creditos">Map: © OpenStreetMap contributors · PNOA orthophoto courtesy of © Instituto Geográfico Nacional · Parcels © Spanish Directorate General for Cadastre</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/nueva/assets/mapa.js?v=20261027b"></script>
+</body>
+</html>

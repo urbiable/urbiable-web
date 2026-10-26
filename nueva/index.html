@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URBIABLE · Qué puedes hacer en cualquier punto del plano</title>
+<meta name="description" content="Marca un punto sobre el plano (solar, terreno, piso, local o nave) y te enviamos un vídeo-informe con lo que se permite ahí. Gratis, con datos oficiales y en menos de 24 horas.">
+<link rel="icon" href="/assets/img/icono.png">
+<link rel="alternate" hreflang="es" href="https://urbiable.com/nueva/">
+<link rel="alternate" hreflang="ca" href="https://urbiable.com/nueva/ca/">
+<link rel="alternate" hreflang="en" href="https://urbiable.com/nueva/en/">
+<link rel="alternate" hreflang="x-default" href="https://urbiable.com/nueva/">
+<link rel="preload" href="/nueva/assets/fuentes/Archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/nueva/assets/estilo.css?v=20261027b">
+</head>
+<body>
+
+<header class="cab">
+  <a class="logo" href="#inicio" aria-label="urbiable, inicio"><b>urb</b>iable<sup>©</sup></a>
+  <nav aria-label="Secciones">
+    <a href="#como">Cómo funciona</a>
+    <a href="#caso">Caso real</a>
+    <a href="#fases">Qué recibes</a>
+    <span class="idiomas"><a href="/nueva/" aria-current="page">ES</a><a href="/nueva/ca/" hreflang="ca" lang="ca">CA</a><a href="/nueva/en/" hreflang="en" lang="en">EN</a></span>
+  </nav>
+</header>
+
+<main>
+
+<section id="inicio" class="hoja hoja-portada" aria-labelledby="titulo">
+  <div class="marco">
+    <span class="coord coord-x" aria-hidden="true">λ <span data-coord="lon">2,162000</span></span>
+    <span class="coord coord-y" aria-hidden="true">φ <span data-coord="lat">41,391500</span></span>
+    <svg class="norte" viewBox="0 0 28 44" width="28" height="44" aria-hidden="true"><path d="M14 2 L22 26 L14 21 L6 26 Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter"/><path d="M14 2 L14 21 L6 26 Z" fill="currentColor"/><text x="14" y="41" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">N</text></svg>
+    <div id="mapa" aria-label="Plano del Catastro para marcar tu punto"></div>
+
+    <div class="consulta">
+      <h1 id="titulo">¿Qué puedes hacer aquí?</h1>
+      <p class="lema">Tú marcas un punto sobre el plano. Nosotros te decimos qué puedes hacer ahí.</p>
+      <div class="buscador">
+        <label class="solo-lector" for="buscar">Dirección, municipio o referencia catastral</label>
+        <input type="search" id="buscar" placeholder="Dirección o ref. catastral" autocomplete="off">
+        <button type="button" id="buscar-boton" class="boton boton-linea">Buscar</button>
+      </div>
+      <ol class="maneras">
+        <li><b>A</b> Escribe la dirección</li>
+        <li><b>B</b> o la referencia catastral</li>
+        <li><b>C</b> o haz clic en tu parcela</li>
+      </ol>
+      <p class="ayuda" id="punto-texto" aria-live="polite">Sirve cualquier punto: solar, terreno, piso, local o nave.</p>
+      <p class="parcela oculto" id="parcela" aria-live="polite"></p>
+    </div>
+
+    <div class="cajetin">
+      <div class="celda celda-marca"><span class="logo"><b>urb</b>iable<sup>©</sup></span><span class="rotulo">Hoja de consulta urbanística</span></div>
+      <div class="celda"><span class="rotulo">Datos</span>Catastro y planeamiento vigente</div>
+      <div class="celda"><span class="rotulo">Entrega</span>Vídeo-informe en menos de 24 h</div>
+      <a class="celda celda-video" href="#como"><span class="rotulo">Detalle 1</span>Mira cómo funciona · 37 s</a>
+      <a class="boton boton-cta" href="#pide" data-cta>Genera tu vídeo-informe GRATIS</a>
+    </div>
+  </div>
+</section>
+
+<section id="como" class="seccion" aria-labelledby="como-titulo">
+  <figure class="detalle detalle-video">
+    <figcaption class="rotulo">Detalle 1 · Vídeo de presentación</figcaption>
+    <video src="/nueva/assets/video/presentacion-v5.mp4" poster="/nueva/assets/img/poster-v5.jpg" controls playsinline preload="none"></video>
+  </figure>
+  <div class="como-texto">
+    <h2 id="como-titulo">Das la ubicación. Recibes tu vídeo-informe.</h2>
+    <ol class="pasos">
+      <li><span class="num">1</span><div><h3>Das la ubicación</h3><p>Con la dirección, la referencia catastral o un clic en el plano. Localizamos la parcela exacta con la geometría oficial del Catastro, nunca la de al lado.</p></div></li>
+      <li><span class="num">2</span><div><h3>Cruzamos las fuentes oficiales</h3><p>Catastro, planeamiento vigente y ordenanzas de ese municipio, artículo por artículo. Según lo que sea, un solar, un piso o una nave, buscamos lo que aplica.</p></div></li>
+      <li><span class="num">3</span><div><h3>Recibes tu vídeo-informe</h3><p>Lo que se permite ahí, en un vídeo 3D fácil de entender: parámetros, usos permitidos, geometría construible y número de viviendas.</p></div></li>
+    </ol>
+    <div class="leyenda" aria-label="Leyenda">
+      <p class="rotulo">Leyenda</p>
+      <p><span class="muestra muestra-continua" aria-hidden="true"></span>Línea continua: dato seguro, de fuente oficial.</p>
+      <p><span class="muestra muestra-discontinua" aria-hidden="true"></span>Línea discontinua: pendiente de confirmar; nunca lo damos por bueno.</p>
+      <p><span class="muestra muestra-verde" aria-hidden="true"></span>Verde: lo que puedes construir.</p>
+    </div>
+  </div>
+</section>
+
+<section id="caso" class="hoja hoja-caso" aria-labelledby="caso-titulo">
+  <div class="marco">
+    <div class="caso-cabecera">
+      <h2 id="caso-titulo">Un caso real, cifra a cifra</h2>
+      <p>Un solar entre medianeras en suelo urbano. Ocultamos la dirección para proteger a su propietario.</p>
+    </div>
+    <div class="caso">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detalle 2 · Volumen máximo que permite la norma</figcaption>
+        <img src="/nueva/assets/img/caso-volumen.jpg" width="900" height="1000" alt="El volumen máximo que permite la norma, en verde, dibujado en 3D sobre el solar con sus cinco plantas" loading="lazy">
+      </figure>
+      <div class="caso-datos">
+      <table class="cuadro">
+        <caption class="solo-lector">Cuadro de datos del caso real</caption>
+        <thead><tr><th scope="col">Concepto</th><th scope="col">Valor</th><th scope="col">Fuente</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Superficie de parcela</th><td>194,00 m²</td><td><span class="fuente">Catastro</span></td></tr>
+          <tr><th scope="row">Altura reguladora máxima</th><td>16,70 m</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Plantas a calle</th><td>PB+4</td><td><span class="fuente">art. 328 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Profundidad edificable</th><td>13,00 m</td><td><span class="fuente">art. 242 · plano</span></td></tr>
+          <tr class="clave"><th scope="row">Techo máximo</th><td>606,99 m²</td><td><span class="fuente">arts. 242-243 y 322</span></td></tr>
+          <tr class="clave"><th scope="row">Viviendas como máximo</th><td>3</td><td><span class="fuente">art. 323 NNUU PGM</span></td></tr>
+          <tr><th scope="row">Planta baja en patio de manzana</th><td>91,24 m²</td><td><span class="fuente">art. 243 NNUU PGM</span></td></tr>
+        </tbody>
+      </table>
+        <div class="caso-accion">
+          <p>Cada cifra lleva su fuente. El vídeo-informe incluye también el emplazamiento, los vecinos, la conectividad y los planes que afectan a la parcela.</p>
+          <a class="boton boton-cta" href="#pide" data-cta>Genera tu vídeo-informe GRATIS</a>
+        </div>
+      </div>
+    </div>
+    <div class="caso-pie">
+      <figure class="detalle">
+        <figcaption class="rotulo">Detalle 3 · La parcela, con sus medidas</figcaption>
+        <img src="/assets/img/planta.jpg" alt="Planta de la parcela con la longitud de cada lado" loading="lazy">
+      </figure>
+      <figure class="detalle">
+        <figcaption class="rotulo">Detalle 4 · El solar y su entorno</figcaption>
+        <img src="/assets/img/axonometria.jpg" alt="El solar en 3D, visto desde la calle" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="fases" class="seccion" aria-labelledby="fases-titulo">
+  <h2 id="fases-titulo">De la duda a la decisión</h2>
+  <ol class="recorrido">
+    <li class="estacion estacion-activa"><span class="parada" aria-hidden="true"></span><h3>Vídeo-informe</h3><p class="dato">Gratis · menos de 24 h</p><p>Lo que se permite en tu punto: parámetros, usos, geometría construible y viviendas. En vídeo 3D, solo con datos seguros.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Informe de posibilidades</h3><p class="dato">Firmado por arquitecto</p><p>El vídeo-informe dice qué permite la norma; el informe dice qué te conviene hacer: opciones comparadas, verificación y una recomendación clara.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Estudio completo</h3><p class="dato">A medida</p><p>Anteproyecto, cuánto cuesta construirlo, cuánto vale y si sale a cuenta.</p></li>
+    <li class="estacion"><span class="parada" aria-hidden="true"></span><h3>Proyecto</h3><p class="dato">Llave en mano</p><p>Si decides seguir adelante, el mismo equipo de arquitectos redacta el proyecto y dirige la obra.</p></li>
+  </ol>
+  <ul class="garantias">
+    <li><h3>Datos oficiales</h3><p>Catastro y planeamiento vigente, consultados en el momento.</p></li>
+    <li><h3>Cada cifra con su artículo</h3><p>Todo es verificable: sabrás de dónde sale cada número.</p></li>
+    <li><h3>Arquitectos colegiados</h3><p>Revisan y firman todo lo que se entrega con firma.</p></li>
+  </ul>
+</section>
+
+<section id="pide" class="hoja hoja-datos" aria-labelledby="pide-titulo">
+  <div class="marco">
+    <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
+      <input type="hidden" name="_subject" value="Nueva petición de vídeo-informe · URBIABLE (web nueva)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="true">
+      <input type="hidden" name="_next" value="https://urbiable.com/nueva/gracias.html">
+      <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="latitud" id="lat" required>
+      <input type="hidden" name="longitud" id="lon" required>
+      <input type="hidden" name="referencia_catastral" id="rc">
+      <input type="hidden" name="parcela_catastro" id="rc-texto">
+
+      <div class="datos-cabecera">
+        <h2 id="pide-titulo">¿A quién enviamos tu vídeo-informe?</h2>
+        <div class="tu-punto">
+          <p class="rotulo">Tu punto</p>
+          <p id="resumen-punto">Todavía no has marcado ningún punto.</p>
+          <a href="#inicio" data-volver>Marcar o cambiar en el plano</a>
+        </div>
+      </div>
+
+      <div class="campos">
+        <label>Dirección o referencia catastral (opcional)<input type="text" name="direccion" id="direccion" placeholder="Calle, número, municipio"></label>
+        <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Teléfono<input type="tel" name="telefono" required autocomplete="tel"></label>
+        <fieldset>
+          <legend>¿Dónde quieres recibir tu vídeo-informe?</legend>
+          <label class="opcion"><input type="radio" name="entrega" value="email" checked> Por email</label>
+          <label class="opcion"><input type="radio" name="entrega" value="instagram"> Por mensaje de Instagram</label>
+          <input type="text" name="instagram" id="instagram" placeholder="Tu usuario de Instagram (@...)" class="oculto" aria-label="Tu usuario de Instagram">
+        </fieldset>
+        <label>Idioma de tu vídeo-informe<select name="idioma_ficha"><option value="castellano" selected>Castellano</option><option value="catalán">Català</option><option value="inglés">English</option></select></label>
+        <input type="hidden" name="idioma_web" value="castellano">
+        <label class="ancho">¿Algo que debamos saber? (opcional)<textarea name="comentario" rows="3" placeholder="Qué te gustaría hacer, si es para comprar o vender…"></textarea></label>
+        <label class="opcion legal ancho"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="/privacidad.html" target="_blank">política de privacidad</a>.</label>
+        <label class="opcion legal ancho"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email (opcional).</label>
+        <p class="error ancho" id="error" role="alert"></p>
+        <div class="enviar ancho">
+          <button type="submit" class="boton boton-cta">Genera tu vídeo-informe GRATIS</button>
+          <p class="ayuda">Te lo enviamos en menos de 24 horas. Sin compromiso.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <a class="logo" href="#inicio"><b>urb</b>iable<sup>©</sup></a>
+  <p><a href="mailto:hola@urbiable.com">hola@urbiable.com</a> · <a href="https://www.instagram.com/urbiable/">@urbiable</a> · <a href="/aviso-legal.html">Aviso legal</a> · <a href="/privacidad.html">Privacidad</a></p>
+  <p class="creditos">Mapa: © colaboradores de OpenStreetMap · Ortofoto PNOA cedida por © Instituto Geográfico Nacional · Parcelario © Dirección General del Catastro</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/nueva/assets/mapa.js?v=20261027b"></script>
+</body>
+</html>
