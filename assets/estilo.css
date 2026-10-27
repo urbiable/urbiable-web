@@ -36,7 +36,9 @@ h1 span { color: var(--verde); }
 h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.8px; margin: 0 0 26px; }
 h3 { font-size: 20px; margin: 0 0 6px; }
 .entrada { font-size: 19px; color: #3d3f36; max-width: 640px; }
-.acciones { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+.acciones { display: flex; gap: 14px 22px; flex-wrap: wrap; align-items: center; margin-top: 28px; }
+.enlace { color: var(--tinta); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+@media (hover: hover) and (pointer: fine) { .enlace:hover { color: var(--verde-oscuro); } }
 .portada-video video { width: 100%; max-width: 380px; margin: 0 auto; border-radius: 22px; aspect-ratio: 9 / 16; background: #dcdcd0; object-fit: cover; }
 
 .bloque { padding: 80px 5vw; max-width: 1240px; margin: 0 auto; }
@@ -104,6 +106,7 @@ legend { font-size: 15px; font-weight: 500; padding: 0 6px; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
+  .cab nav a.boton { display: none; }   /* en móvil el botón de la portada queda justo debajo: no se repite en la cabecera */
   .pasos, .fases, .caso-pie { grid-template-columns: 1fr; }
   .portada { padding-top: 40px; }
   .bloque { padding: 56px 5vw; }

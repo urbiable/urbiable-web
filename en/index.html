@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>URBIABLE · What you can build at any point on the map</title>
-<meta name="description" content="Mark a point on the map and we tell you what you can build there: height, floors, square metres, homes. Free summary in under 24 hours, with official data and in 3D.">
+<meta name="description" content="Mark a point on the map and we tell you what you can build there: height, floors, square metres, homes. Free video report in under 24 hours, with official data and in 3D.">
 <link rel="icon" href="../assets/img/icono.png">
 <link rel="alternate" hreflang="es" href="https://urbiable.com/">
 <link rel="alternate" hreflang="ca" href="https://urbiable.com/ca/">
 <link rel="alternate" hreflang="en" href="https://urbiable.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://urbiable.com/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="../assets/estilo.css?v=20261026a">
+<link rel="stylesheet" href="../assets/estilo.css?v=20261028a">
 </head>
 <body>
 
@@ -21,7 +21,7 @@
     <a href="#how">How it works</a>
     <a href="#case">Real case</a>
     <a href="#phases">What you get</a>
-    <a class="boton pequeño" href="#request">Get your summary</a>
+    <a class="boton pequeño" href="#request">Get your video report FREE</a>
     <span class="idiomas"><a href="/" hreflang="es" lang="es">ES</a><a href="/ca/" hreflang="ca" lang="ca">CA</a><a href="/en/" aria-current="page">EN</a></span>
   </nav>
 </header>
@@ -33,10 +33,10 @@
   <div class="portada-texto">
     <p class="antetitulo">Planning made clear, in 3D</p>
     <h1>You mark a point on the map.<br><span>We tell you what you can do there.</span></h1>
-    <p class="entrada">Height, floors, buildable floor area, number of homes and permitted uses for any plot, site or property in Spain, from official data and explained in a 3D video. Your first summary is free and arrives in under 24 hours.</p>
+    <p class="entrada">Height, floors, buildable floor area, number of homes and permitted uses for any plot, site or property in Spain, from official data and explained in a 3D video. Your first video report is free and arrives in under 24 hours.</p>
     <div class="acciones">
-      <a class="boton" href="#case">See a real case</a>
-      <a class="boton secundario" href="#request">Mark your point</a>
+      <a class="boton" href="#request">Get your video report FREE</a>
+      <a class="enlace" href="#case">See a real case</a>
     </div>
   </div>
   <div class="portada-video">
@@ -76,8 +76,8 @@
     <figure><img src="../assets/img/planta.jpg" alt="Plan of the plot with its dimensions"><figcaption>The plot, with its exact dimensions</figcaption></figure>
     <figure><img src="../assets/img/axonometria.jpg" alt="The plot in 3D, seen from the street"><figcaption>The plot and its surroundings, from the street</figcaption></figure>
   </div>
-  <p class="nota">Every figure comes with its source and its article. The summary also covers the location, the neighbouring buildings, transport links and the plans affecting the plot.</p>
-  <a class="boton" href="#request">I want the one for my point</a>
+  <p class="nota">Every figure comes with its source and its article. The video report also covers the location, the neighbouring buildings, transport links and the plans affecting the plot.</p>
+  <a class="boton" href="#request">Get your video report FREE</a>
 </section>
 
 <!-- 4 · What you get -->
@@ -87,13 +87,13 @@
   <div class="fases">
     <article class="fase destacada">
       <span class="etiqueta">Free · under 24 h</span>
-      <h3>Summary of your point</h3>
+      <h3>Video report of your point</h3>
       <p>Everything the planning rules say about your plot: height, floors, depth, maximum floor area, homes, uses and parking. In 3D video and PDF.</p>
     </article>
     <article class="fase">
       <span class="etiqueta">Signed by an architect</span>
       <h3>Options report</h3>
-      <p>The summary tells you what the rules allow. The report tells you what is worth doing: options compared, special cases, verification and a clear recommendation.</p>
+      <p>The video report tells you what the rules allow. The report tells you what is worth doing: options compared, special cases, verification and a clear recommendation.</p>
     </article>
     <article class="fase">
       <span class="etiqueta">Tailor-made</span>
@@ -117,10 +117,10 @@
 
 <!-- 6 · Form -->
 <section id="request" class="bloque">
-  <p class="antetitulo">Get your free summary</p>
+  <p class="antetitulo">Get your free video report</p>
   <h2>Mark your point on the map</h2>
   <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
-    <input type="hidden" name="_subject" value="Nueva petición de ficha · URBIABLE (web en inglés)">
+    <input type="hidden" name="_subject" value="Nueva petición de vídeo-informe · URBIABLE (web en inglés)">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="true">
     <input type="hidden" name="_next" value="https://urbiable.com/en/thanks.html">
@@ -146,18 +146,18 @@
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
       <label>Phone<input type="tel" name="telefono" required autocomplete="tel"></label>
       <fieldset>
-        <legend>Where would you like to receive your video summary?</legend>
+        <legend>Where would you like to receive your video report?</legend>
         <label class="opcion"><input type="radio" name="entrega" value="email" checked> By email</label>
         <label class="opcion"><input type="radio" name="entrega" value="instagram"> By Instagram message</label>
         <input type="text" name="instagram" id="instagram" placeholder="Your Instagram username (@...)" class="oculto">
       </fieldset>
-      <label>Language of your summary<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán">Català</option><option value="inglés" selected>English</option></select></label>
+      <label>Language of your video report<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán">Català</option><option value="inglés" selected>English</option></select></label>
       <input type="hidden" name="idioma_web" value="inglés">
       <label>Anything we should know? (optional)<textarea name="comentario" rows="3" placeholder="What you would like to do, whether you are buying or selling…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> I have read and accept the <a href="privacy.html" target="_blank">privacy policy</a>.</label>
       <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> I would like to receive URBIABLE news and cases by email (optional).</label>
       <p class="error" id="error" role="alert"></p>
-      <button type="submit" class="boton">Get my free summary</button>
+      <button type="submit" class="boton">Get your video report FREE</button>
       <p class="ayuda">We send it within 24 hours. No commitment.</p>
     </div>
   </form>
