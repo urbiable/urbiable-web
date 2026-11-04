@@ -322,12 +322,26 @@
     insta.required = si;
   }));
 
-  // validación: hace falta el punto
-  document.getElementById("form").addEventListener("submit", e => {
+  // envío: hace falta el punto; los datos van a FormSubmit (llegan a hola@urbiable.com) y el cliente pasa a pagar en Stripe.
+  // A Stripe se le pasa el email y una referencia de la ubicación (client_reference_id) para cruzar el pago con el pedido.
+  const PAGO = "https://buy.stripe.com/5kQ9AVa3j39E8QWavRdwc01";
+  const form = document.getElementById("form");
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
     if (!lat.value) {
-      e.preventDefault();
       error.textContent = T.sinPunto;
       document.getElementById("mapa").scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
     }
+    const enviar = form.querySelector("button[type=submit]");
+    enviar.disabled = true;
+    try {
+      await fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+        method: "POST", headers: { Accept: "application/json" }, body: new FormData(form)
+      });
+    } catch (_) { /* si falla el aviso, el pago sigue: Stripe guarda nombre, email y referencia */ }
+    const ref = (rc.value || ("punto_" + lat.value + "_" + lon.value)).replace(/[^A-Za-z0-9_-]/g, "-").slice(0, 200);
+    const email = form.querySelector("input[name=email]").value;
+    location.href = PAGO + "?prefilled_email=" + encodeURIComponent(email) + "&client_reference_id=" + encodeURIComponent(ref);
   });
 })();
