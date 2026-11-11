@@ -21,7 +21,7 @@
     <a href="#how">How it works</a>
     <a href="#case">Real case</a>
     <a href="#phases">What you get</a>
-    <a class="boton pequeño" href="#request">Get your video report for €19</a>
+    <a class="boton pequeño" href="#request">Request your video report</a>
     <span class="idiomas"><a href="/" hreflang="es" lang="es">ES</a><a href="/ca/" hreflang="ca" lang="ca">CA</a><a href="/en/" aria-current="page">EN</a></span>
   </nav>
 </header>
@@ -33,9 +33,9 @@
   <div class="portada-texto">
     <p class="antetitulo">Planning made clear, in 3D</p>
     <h1>You mark a point on the map.<br><span>We tell you what you can do there.</span></h1>
-    <p class="entrada">Height, floors, buildable floor area, number of homes and permitted uses for any plot, site or property in Spain, from official data and explained in a 3D video. The video report is for information only and costs €19 (VAT included).</p>
+    <p class="entrada">Height, floors, buildable floor area, number of homes and permitted uses for your plot, site or property, from official data and explained in a 3D video. We are opening area by area: if yours is not available yet, we will let you know. The video report is for information only and costs €19 (VAT included).</p>
     <div class="acciones">
-      <a class="boton" href="#request">Get your video report for €19</a>
+      <a class="boton" href="#request">Request your video report</a>
       <a class="enlace" href="#case">See a real case</a>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <figure><img src="../assets/img/axonometria.jpg" alt="The plot in 3D, seen from the street"><figcaption>The plot and its surroundings, from the street</figcaption></figure>
   </div>
   <p class="nota">Every figure comes with its source and its article. The video report also covers the location, the neighbouring buildings, transport links and the plans affecting the plot.</p>
-  <a class="boton" href="#request">Get your video report for €19</a>
+  <a class="boton" href="#request">Request your video report</a>
 </section>
 
 <!-- 4 · What you get -->
@@ -146,13 +146,9 @@
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
       <label>Phone<input type="tel" name="telefono" required autocomplete="tel"></label>
       <label>Are you planning building work or a project at this location? (optional)<select name="obras"><option value="">Choose an option</option><option value="sí, en los próximos meses">Yes, in the coming months</option><option value="quizá, lo está valorando">Maybe, I am considering it</option><option value="no, solo información">No, I only want information</option></select></label>
-      <fieldset>
-        <legend>Where would you like to receive your video report?</legend>
-        <label class="opcion"><input type="radio" name="entrega" value="email" checked> By email</label>
-        <label class="opcion"><input type="radio" name="entrega" value="instagram"> By Instagram message</label>
-        <input type="text" name="instagram" id="instagram" placeholder="Your Instagram username (@...)" class="oculto">
-      </fieldset>
-      <label>Language of your video report<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán">Català</option><option value="inglés" selected>English</option></select></label>
+      <input type="hidden" name="entrega" value="email">
+      <input type="hidden" name="idioma_ficha" value="castellano">
+      <p class="ayuda">For now, the video report is delivered in Spanish.</p>
       <input type="hidden" name="idioma_web" value="inglés">
       <label>Anything we should know? (optional)<textarea name="comentario" rows="3" placeholder="What you would like to do, whether you are buying or selling…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> I have read and accept the <a href="privacy.html" target="_blank">privacy policy</a>.</label>

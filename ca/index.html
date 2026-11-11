@@ -21,7 +21,7 @@
     <a href="#com">Com funciona</a>
     <a href="#cas">Cas real</a>
     <a href="#fases">Què reps</a>
-    <a class="boton pequeño" href="#demana">Genera el teu vídeo-informe per 19&nbsp;€</a>
+    <a class="boton pequeño" href="#demana">Demana el teu vídeo-informe</a>
     <span class="idiomas"><a href="/" hreflang="es" lang="es">ES</a><a href="/ca/" aria-current="page">CA</a><a href="/en/" hreflang="en" lang="en">EN</a></span>
   </nav>
 </header>
@@ -33,9 +33,9 @@
   <div class="portada-texto">
     <p class="antetitulo">Urbanisme clar, en 3D</p>
     <h1>Tu marques un punt sobre el plànol.<br><span>Nosaltres et diem què hi pots fer.</span></h1>
-    <p class="entrada">Alçada, plantes, metres construïbles, habitatges i usos de qualsevol solar, parcel·la o immoble, amb dades oficials i explicat en un vídeo 3D. El vídeo-informe és informatiu i costa 19&nbsp;€ (IVA inclòs).</p>
+    <p class="entrada">Alçada, plantes, metres construïbles, habitatges i usos del teu solar, parcel·la o immoble, amb dades oficials i explicat en un vídeo 3D. Comencem zona a zona: si la teva encara no està disponible, t'avisem. El vídeo-informe és informatiu i costa 19&nbsp;€ (IVA inclòs).</p>
     <div class="acciones">
-      <a class="boton" href="#demana">Genera el teu vídeo-informe per 19&nbsp;€</a>
+      <a class="boton" href="#demana">Demana el teu vídeo-informe</a>
       <a class="enlace" href="#cas">Mira un cas real</a>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <figure><img src="../assets/img/axonometria.jpg" alt="El solar en 3D, vist des del carrer"><figcaption>El solar i el seu entorn, des del carrer</figcaption></figure>
   </div>
   <p class="nota">Cada dada porta la seva font i el seu article. El vídeo-informe inclou també l'emplaçament, els veïns, la connectivitat i els plans que afecten la parcel·la.</p>
-  <a class="boton" href="#demana">Genera el teu vídeo-informe per 19&nbsp;€</a>
+  <a class="boton" href="#demana">Demana el teu vídeo-informe</a>
 </section>
 
 <!-- 4 · Què reps -->
@@ -146,13 +146,9 @@
       <label>Correu electrònic<input type="email" name="email" required autocomplete="email"></label>
       <label>Telèfon<input type="tel" name="telefono" required autocomplete="tel"></label>
       <label>Tens previst fer obres o un projecte en aquesta ubicació? (opcional)<select name="obras"><option value="">Tria una opció</option><option value="sí, en los próximos meses">Sí, en els propers mesos</option><option value="quizá, lo está valorando">Potser, ho estic valorant</option><option value="no, solo información">No, només vull informació</option></select></label>
-      <fieldset>
-        <legend>On vols rebre el teu vídeo-informe?</legend>
-        <label class="opcion"><input type="radio" name="entrega" value="email" checked> Per correu electrònic</label>
-        <label class="opcion"><input type="radio" name="entrega" value="instagram"> Per missatge d'Instagram</label>
-        <input type="text" name="instagram" id="instagram" placeholder="El teu usuari d'Instagram (@...)" class="oculto">
-      </fieldset>
-      <label>Idioma del teu vídeo-informe<select name="idioma_ficha"><option value="castellano">Castellano</option><option value="catalán" selected>Català</option><option value="inglés">English</option></select></label>
+      <input type="hidden" name="entrega" value="email">
+      <input type="hidden" name="idioma_ficha" value="castellano">
+      <p class="ayuda">De moment, el vídeo-informe es lliura en castellà.</p>
       <input type="hidden" name="idioma_web" value="catalán">
       <label>Hi ha alguna cosa que hàgim de saber? (opcional)<textarea name="comentario" rows="3" placeholder="Què t'agradaria fer, si és per comprar o vendre…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He llegit i accepto la <a href="privacitat.html" target="_blank">política de privacitat</a>.</label>

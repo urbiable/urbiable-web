@@ -21,7 +21,7 @@
     <a href="#como">Cómo funciona</a>
     <a href="#caso">Caso real</a>
     <a href="#fases">Qué recibes</a>
-    <a class="boton pequeño" href="#pide">Genera tu vídeo-informe por 19&nbsp;€</a>
+    <a class="boton pequeño" href="#pide">Pide tu vídeo-informe</a>
     <span class="idiomas"><a href="/" aria-current="page">ES</a><a href="/ca/" hreflang="ca" lang="ca">CA</a><a href="/en/" hreflang="en" lang="en">EN</a></span>
   </nav>
 </header>
@@ -33,9 +33,9 @@
   <div class="portada-texto">
     <p class="antetitulo">Urbanismo claro, en 3D</p>
     <h1>Tú marcas un punto sobre el plano.<br><span>Nosotros te decimos qué puedes hacer ahí.</span></h1>
-    <p class="entrada">Altura, plantas, metros construibles, viviendas y usos de cualquier solar, parcela o inmueble, con datos oficiales y explicado en un vídeo 3D. El vídeo-informe es informativo y cuesta 19&nbsp;€ (IVA incluido).</p>
+    <p class="entrada">Altura, plantas, metros construibles, viviendas y usos de tu solar, parcela o inmueble, con datos oficiales y explicado en un vídeo 3D. Empezamos zona a zona: si la tuya aún no está disponible, te avisamos. El vídeo-informe es informativo y cuesta 19&nbsp;€ (IVA incluido).</p>
     <div class="acciones">
-      <a class="boton" href="#pide">Genera tu vídeo-informe por 19&nbsp;€</a>
+      <a class="boton" href="#pide">Pide tu vídeo-informe</a>
       <a class="enlace" href="#caso">Mira un caso real</a>
     </div>
   </div>
@@ -77,7 +77,7 @@
     <figure><img src="assets/img/axonometria.jpg" alt="El solar en 3D, visto desde la calle"><figcaption>El solar y su entorno, desde la calle</figcaption></figure>
   </div>
   <p class="nota">Cada dato lleva su fuente y su artículo. El vídeo-informe incluye también el emplazamiento, los vecinos, la conectividad y los planes que afectan a la parcela.</p>
-  <a class="boton" href="#pide">Genera tu vídeo-informe por 19&nbsp;€</a>
+  <a class="boton" href="#pide">Pide tu vídeo-informe</a>
 </section>
 
 <!-- 4 · Qué recibes -->
@@ -146,13 +146,8 @@
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
       <label>Teléfono<input type="tel" name="telefono" required autocomplete="tel"></label>
       <label>¿Tienes previsto hacer obras o un proyecto en esta ubicación? (opcional)<select name="obras"><option value="">Elige una opción</option><option value="sí, en los próximos meses">Sí, en los próximos meses</option><option value="quizá, lo está valorando">Quizá, lo estoy valorando</option><option value="no, solo información">No, solo quiero información</option></select></label>
-      <fieldset>
-        <legend>¿Dónde quieres recibir tu vídeo-informe?</legend>
-        <label class="opcion"><input type="radio" name="entrega" value="email" checked> Por email</label>
-        <label class="opcion"><input type="radio" name="entrega" value="instagram"> Por mensaje de Instagram</label>
-        <input type="text" name="instagram" id="instagram" placeholder="Tu usuario de Instagram (@...)" class="oculto">
-      </fieldset>
-      <label>Idioma de tu vídeo-informe<select name="idioma_ficha"><option value="castellano" selected>Castellano</option><option value="catalán">Català</option><option value="inglés">English</option></select></label>
+      <input type="hidden" name="entrega" value="email">
+      <input type="hidden" name="idioma_ficha" value="castellano">
       <input type="hidden" name="idioma_web" value="castellano">
       <label>¿Algo que debamos saber? (opcional)<textarea name="comentario" rows="3" placeholder="Qué te gustaría hacer, si es para comprar o vender…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</label>
