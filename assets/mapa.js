@@ -325,6 +325,10 @@
   // envío: hace falta el punto; los datos van a FormSubmit (llegan a hola@urbiable.com) y el cliente pasa a pagar en Stripe.
   // A Stripe se le pasa el email y una referencia de la ubicación (client_reference_id) para cruzar el pago con el pedido.
   const PAGO = "https://buy.stripe.com/5kQ9AVa3j39E8QWavRdwc01";
+  // PAGO_ACTIVO = false (decisión de Jaume, 11-11-2026): no se cobra hasta que el recorrido sea 100 % automático y fiable.
+  // La petición llega igual a hola@urbiable.com y el cliente va a la página de gracias, sin pasar por Stripe.
+  const PAGO_ACTIVO = false;
+  const GRACIAS = { es: "/gracias.html", ca: "/ca/gracies.html", en: "/en/thanks.html" };
   const form = document.getElementById("form");
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -342,6 +346,7 @@
     } catch (_) { /* si falla el aviso, el pago sigue: Stripe guarda nombre, email y referencia */ }
     const ref = (rc.value || ("punto_" + lat.value + "_" + lon.value)).replace(/[^A-Za-z0-9_-]/g, "-").slice(0, 200);
     const email = form.querySelector("input[name=email]").value;
+    if (!PAGO_ACTIVO) { location.href = GRACIAS[IDIOMA] || GRACIAS.es; return; }
     location.href = PAGO + "?prefilled_email=" + encodeURIComponent(email) + "&client_reference_id=" + encodeURIComponent(ref);
   });
 })();
