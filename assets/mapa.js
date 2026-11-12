@@ -322,14 +322,38 @@
     insta.required = si;
   }));
 
-  // envío: hace falta el punto; los datos van a FormSubmit (llegan a hola@urbiable.com) y el cliente pasa a pagar en Stripe.
-  // A Stripe se le pasa el email y una referencia de la ubicación (client_reference_id) para cruzar el pago con el pedido.
-  const PAGO = "https://buy.stripe.com/5kQ9AVa3j39E8QWavRdwc01";
+  // envío (fase 2): los datos van al servicio de entrada de URBIABLE (Azure), que guarda el pedido, arranca el motor
+  // y envía la confirmación por Brevo. Si el servicio no responde (caída o red), se usa FormSubmit como antes
+  // para no perder la petición (llega a hola@urbiable.com).
   // PAGO_ACTIVO = false (decisión de Jaume, 11-11-2026): no se cobra hasta que el recorrido sea 100 % automático y fiable.
-  // La petición llega igual a hola@urbiable.com y el cliente va a la página de gracias, sin pasar por Stripe.
-  const PAGO_ACTIVO = false;
+  const ENTRADA = "https://ca-urbiable-entrada.livelytree-44a4b975.spaincentral.azurecontainerapps.io";              // ← URL que imprime azure_fase2.ps1 (ca-urbiable-entrada)
+  const PRIVACIDAD_VERSION = "2026-11-12";             // ← cambiar si cambia el texto de la política de privacidad
   const GRACIAS = { es: "/gracias.html", ca: "/ca/gracies.html", en: "/en/thanks.html" };
+  const ERRORES = {
+    es: { fuera_de_cataluna: "De momento URBIABLE solo trabaja en Cataluña. Marca un punto dentro de Cataluña.",
+          sin_parcela: "Ese punto no cae dentro de ninguna parcela del Catastro. Haz clic dentro de tu parcela.",
+          limite_por_hora: "Has enviado varios pedidos seguidos. Espera un rato y vuelve a intentarlo.",
+          limite_diario: "Hoy ya hemos recibido el máximo de pedidos que podemos atender. Vuelve a intentarlo mañana.",
+          campos: "Revisa los campos marcados: ", otro: "No se ha podido enviar. Vuelve a intentarlo en unos minutos." },
+    ca: { fuera_de_cataluna: "De moment URBIABLE només treballa a Catalunya. Marca un punt dins de Catalunya.",
+          sin_parcela: "Aquest punt no cau dins de cap parcel·la del Cadastre. Fes clic dins de la teva parcel·la.",
+          limite_por_hora: "Has enviat diverses comandes seguides. Espera una estona i torna-ho a provar.",
+          limite_diario: "Avui ja hem rebut el màxim de comandes que podem atendre. Torna-ho a provar demà.",
+          campos: "Revisa els camps marcats: ", otro: "No s'ha pogut enviar. Torna-ho a provar d'aquí a uns minuts." },
+    en: { fuera_de_cataluna: "For now URBIABLE only works in Catalonia. Please mark a point inside Catalonia.",
+          sin_parcela: "That point is not inside any Cadastre parcel. Please click inside your parcel.",
+          limite_por_hora: "You have sent several requests in a row. Please wait a while and try again.",
+          limite_diario: "We have reached today's maximum number of requests. Please try again tomorrow.",
+          campos: "Please check these fields: ", otro: "It could not be sent. Please try again in a few minutes." }
+  };
   const form = document.getElementById("form");
+  const campo = n => form.querySelector("[name=" + n + "]");
+  const textoPrivacidad = () => campo("privacidad").closest("label").textContent.replace(/\s+/g, " ").trim();
+  async function respaldo() {        // FormSubmit, como hasta ahora
+    await fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
+      method: "POST", headers: { Accept: "application/json" }, body: new FormData(form)
+    });
+  }
   form.addEventListener("submit", async e => {
     e.preventDefault();
     if (!lat.value) {
@@ -337,16 +361,32 @@
       document.getElementById("mapa").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
+    const E = ERRORES[IDIOMA] || ERRORES.es;
     const enviar = form.querySelector("button[type=submit]");
     enviar.disabled = true;
+    error.textContent = "";
+    const datos = {
+      nombre: campo("nombre").value, email: campo("email").value, telefono: campo("telefono").value || null,
+      lat: +lat.value, lon: +lon.value, rc: rc.value || null, direccion: campo("direccion").value || null,
+      comentario: campo("comentario").value || null, obras: campo("obras")?.value || null, idioma: IDIOMA,
+      privacidad: campo("privacidad").checked, privacidad_version: PRIVACIDAD_VERSION,
+      privacidad_texto: textoPrivacidad(), privacidad_fecha: new Date().toISOString(),
+      novedades: campo("novedades").checked, sitio_web: campo("_honey").value
+    };
+    let r = null;
     try {
-      await fetch(form.action.replace("formsubmit.co/", "formsubmit.co/ajax/"), {
-        method: "POST", headers: { Accept: "application/json" }, body: new FormData(form)
+      r = await fetch(ENTRADA + "/pedido", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(datos)
       });
-    } catch (_) { /* si falla el aviso, el pago sigue: Stripe guarda nombre, email y referencia */ }
-    const ref = (rc.value || ("punto_" + lat.value + "_" + lon.value)).replace(/[^A-Za-z0-9_-]/g, "-").slice(0, 200);
-    const email = form.querySelector("input[name=email]").value;
-    if (!PAGO_ACTIVO) { location.href = GRACIAS[IDIOMA] || GRACIAS.es; return; }
-    location.href = PAGO + "?prefilled_email=" + encodeURIComponent(email) + "&client_reference_id=" + encodeURIComponent(ref);
-  });
-})();
+    } catch (_) { r = null; }
+    if (r && r.status === 202) { location.href = GRACIAS[IDIOMA] || GRACIAS.es; return; }
+    if (r && (r.status === 422 || r.status === 429)) {           // el cliente puede corregirlo: no se envía a FormSubmit
+      const d = await r.json().catch(() => ({}));
+      const motivo = d.error || "";
+      error.textContent = E[motivo] || (motivo.startsWith("campos_no_validos:") ? E.campos + motivo.split(":")[1] : E.otro);
+      enviar.disabled = false;
+      return;
+    }
+    try { await respaldo(); location.href = GRACIAS[IDIOMA] || GRACIAS.es; }   // servicio caído: FormSubmit
+    catch (_) { error.textContent = E.otro; enviar.disabled = false; }
+  });})();
