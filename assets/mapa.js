@@ -47,11 +47,15 @@
     }
   };
   const T = TEXTOS[IDIOMA] || TEXTOS.es;
+  // medición (assets/medicion.js); si no está cargada, no hace nada
+  const ev = (n, props, inmediato) => { try { window.urbiableEvento && window.urbiableEvento(n, props, inmediato); } catch (_) {} };
   // Arranca en Cataluña (donde damos servicio). La rueda del ratón no hace zoom hasta que se pulsa el plano,
   // para que al bajar por la página no se quede atrapado en el mapa.
   const mapa = L.map("mapa", { zoomControl: true, scrollWheelZoom: false }).setView([41.75, 1.75], 8);
   mapa.on("focus click", () => mapa.scrollWheelZoom.enable());
   mapa.getContainer().addEventListener("mouseleave", () => mapa.scrollWheelZoom.disable());
+  mapa.once("zoomstart dragstart", () => ev("plano_usado"));
+  mapa.on("zoomend", () => { if (mapa.getZoom() >= 17 && !mapa._urbiableCerca) { mapa._urbiableCerca = true; ev("plano_zoom_parcelas"); } });
 
   const plano = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 20, maxNativeZoom: 19, className: "gris", attribution: T.osm
@@ -89,6 +93,7 @@
     texto.textContent = T.marcado;
     error.textContent = "";
     if (zoom) mapa.setView(latlng, zoom);
+    ev("punto_marcado", { metodo: conocida ? "busqueda" : "plano", zoom: mapa.getZoom() });
     identifica(latlng, conocida);
   }
   mapa.on("click", e => marcar(e.latlng, Math.max(mapa.getZoom(), 18)));
@@ -110,6 +115,7 @@
       }
       if (!c) {
         caja.textContent = T.fuera;
+        ev("parcela_no_encontrada");
         return;
       }
       const ref = c.pc.pc1 + c.pc.pc2, dir = (c.ldt || "").trim();
@@ -120,8 +126,9 @@
       rcTexto.value = ref + " · " + dir;
       if (direccion && !direccion.value) direccion.value = dir;
       dibuja(ref, n);
+      ev("parcela_identificada");
     } catch (e) {
-      if (n === consulta) caja.textContent = T.sinCatastro;
+      if (n === consulta) { caja.textContent = T.sinCatastro; ev("catastro_error"); }
     }
   }
 
@@ -225,6 +232,7 @@
     cierraLista();
     boton.disabled = true;
     texto.textContent = T.buscando;
+    ev("busqueda", { tipo: /^[0-9A-Z]{14}/i.test(q.replace(/\s/g, "")) ? "referencia_catastral" : "texto", sugerencia: !!elegida });
     try {
       const posibleRC = q.replace(/\s/g, "").toUpperCase();
       if (!elegida && /^[0-9A-Z]{14}([0-9A-Z]{6})?$/.test(posibleRC) && /\d{5}/.test(posibleRC)) {
@@ -236,8 +244,8 @@
       const d = await json("https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=es&q=" + encodeURIComponent(q));
       const zona = d.length && /city|town|village|municipality|county|state|province|suburb|hamlet/.test(d[0].addresstype || d[0].type);
       if (d.length) { mapa.setView([+d[0].lat, +d[0].lon], zona ? 15 : 18); texto.textContent = zona ? T.zona : T.clic; }
-      else texto.textContent = T.noEncontrada;
-    } catch (e) { texto.textContent = T.sinBuscar; }
+      else { texto.textContent = T.noEncontrada; ev("busqueda_sin_resultado"); }
+    } catch (e) { texto.textContent = T.sinBuscar; ev("busqueda_error"); }
     finally { boton.disabled = false; }
   }
   boton.addEventListener("click", () => busca());
@@ -331,7 +339,7 @@
   // para no perder la petición (llega a hola@urbiable.com).
   // PAGO_ACTIVO = false (decisión de Jaume, 11-11-2026): no se cobra hasta que el recorrido sea 100 % automático y fiable.
   const ENTRADA = "https://ca-urbiable-entrada.livelytree-44a4b975.spaincentral.azurecontainerapps.io";              // ← URL que imprime azure_fase2.ps1 (ca-urbiable-entrada)
-  const PRIVACIDAD_VERSION = "2026-11-12";             // ← cambiar si cambia el texto de la política de privacidad
+  const PRIVACIDAD_VERSION = "2026-11-13";             // ← cambiar si cambia el texto de la política de privacidad
   const GRACIAS = { es: "/gracias.html", ca: "/ca/gracies.html", en: "/en/thanks.html" };
   const ERRORES = {
     es: { fuera_de_cataluna: "De momento URBIABLE solo trabaja en Cataluña. Marca un punto dentro de Cataluña.",
@@ -362,6 +370,7 @@
     e.preventDefault();
     if (!lat.value) {
       error.textContent = T.sinPunto;
+      ev("envio_sin_punto");
       document.getElementById("mapa").scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
@@ -377,20 +386,29 @@
       privacidad_texto: textoPrivacidad(), privacidad_fecha: new Date().toISOString(),
       novedades: campo("novedades").checked, sitio_web: campo("_honey").value
     };
+    ev("pedido_enviado", { con_parcela: !!rc.value, obras: datos.obras || "sin_respuesta", novedades: datos.novedades });
+    const t0 = performance.now();
     let r = null;
     try {
       r = await fetch(ENTRADA + "/pedido", {
         method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(datos)
       });
     } catch (_) { r = null; }
-    if (r && r.status === 202) { location.href = GRACIAS[IDIOMA] || GRACIAS.es; return; }
+    if (r && r.status === 202) {
+      const d = await r.clone().json().catch(() => ({}));
+      ev("pedido_aceptado", { referencia: d.referencia || d.ref || null, ms: Math.round(performance.now() - t0) }, true);
+      setTimeout(() => { location.href = GRACIAS[IDIOMA] || GRACIAS.es; }, 250);
+      return;
+    }
     if (r && (r.status === 422 || r.status === 429)) {           // el cliente puede corregirlo: no se envía a FormSubmit
       const d = await r.json().catch(() => ({}));
       const motivo = d.error || "";
+      ev("pedido_rechazado", { status: r.status, motivo: motivo.split(":")[0] });
       error.textContent = E[motivo] || (motivo.startsWith("campos_no_validos:") ? E.campos + motivo.split(":")[1] : E.otro);
       enviar.disabled = false;
       return;
     }
-    try { await respaldo(); location.href = GRACIAS[IDIOMA] || GRACIAS.es; }   // servicio caído: FormSubmit
-    catch (_) { error.textContent = E.otro; enviar.disabled = false; }
+    ev("pedido_servicio_caido", { status: r ? r.status : "sin_respuesta" });
+    try { await respaldo(); ev("pedido_respaldo_formsubmit", {}, true); setTimeout(() => { location.href = GRACIAS[IDIOMA] || GRACIAS.es; }, 250); }   // servicio caído: FormSubmit
+    catch (_) { error.textContent = E.otro; enviar.disabled = false; ev("pedido_error"); }
   });})();
