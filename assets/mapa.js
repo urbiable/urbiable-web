@@ -47,7 +47,11 @@
     }
   };
   const T = TEXTOS[IDIOMA] || TEXTOS.es;
-  const mapa = L.map("mapa", { zoomControl: true }).setView([40.2, -3.6], 6);
+  // Arranca en Cataluña (donde damos servicio). La rueda del ratón no hace zoom hasta que se pulsa el plano,
+  // para que al bajar por la página no se quede atrapado en el mapa.
+  const mapa = L.map("mapa", { zoomControl: true, scrollWheelZoom: false }).setView([41.75, 1.75], 8);
+  mapa.on("focus click", () => mapa.scrollWheelZoom.enable());
+  mapa.getContainer().addEventListener("mouseleave", () => mapa.scrollWheelZoom.disable());
 
   const plano = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 20, maxNativeZoom: 19, className: "gris", attribution: T.osm
