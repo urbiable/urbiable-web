@@ -67,6 +67,11 @@ figcaption { font-size: 14px; color: var(--gris); margin-top: 8px; }
 .fase.destacada { background: var(--verde); color: #fff; border-color: var(--verde); }
 .fase.destacada .etiqueta { background: #fff; color: var(--verde-oscuro); }
 .fase p { font-size: 15px; margin: 0; }
+.fases.tres { grid-template-columns: repeat(3, 1fr); }
+.fase .precio { font-size: 40px; font-weight: 700; line-height: 1.1; margin: 4px 0 2px; color: inherit; }
+.fase .por { font-size: 13px; margin: 0 0 14px; }
+.fase .boton { margin-top: 20px; }
+.fase.destacada .boton { background: #fff; color: var(--verde-oscuro); }
 .fase:not(.destacada) p { color: var(--gris); }
 .etiqueta { display: inline-block; font-size: 13px; font-weight: 600; background: var(--tinta); color: #fff; border-radius: 999px; padding: 4px 12px; margin-bottom: 14px; }
 
