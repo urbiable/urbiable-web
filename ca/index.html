@@ -20,7 +20,7 @@
 <link rel="alternate" hreflang="en" href="https://urbiable.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://urbiable.com/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="../assets/estilo.css?v=20261113b">
+<link rel="stylesheet" href="../assets/estilo.css?v=20261113c">
 <script src="/assets/medicion.js?v=20261113a"></script>
 </head>
 <body>
@@ -134,44 +134,45 @@
 <!-- 6 · Formulari -->
 <section id="demana" class="bloque">
   <p class="antetitulo">Demana el teu vídeo-informe</p>
-  <h2>Marca el teu punt sobre el plànol</h2>
+  <h2>Tria la teva parcel·la i te l'enviem</h2>
   <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
     <input type="hidden" name="_subject" value="Nuevo pedido de vídeo-informe (pago desactivado: avisar cuando esté lista) · URBIABLE (web en catalán)">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="true">
     <input type="hidden" name="_next" value="https://urbiable.com/ca/gracies.html">
     <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off">
-
     <div class="mapa-caja">
+      <p class="paso">1 · Troba la teva parcel·la</p>
+      <p class="ayuda arriba">Escriu l'adreça o la referència cadastral, o apropa el plànol i fes clic dins la teva parcel·la.</p>
       <div class="buscador">
         <input type="search" id="buscar" placeholder="Adreça, municipi o referència cadastral" autocomplete="off">
         <button type="button" id="buscar-boton" class="boton pequeño">Cerca</button>
       </div>
-      <div id="mapa" aria-label="Plànol per marcar el punt"></div>
-      <p class="ayuda" id="punto-texto">Apropa el plànol fins a veure les parcel·les del Cadastre i fes clic dins de la teva.</p>
-      <p class="parcela oculto" id="parcela"></p>
+      <div id="mapa" aria-label="Plànol per triar la parcel·la"></div>
+      <p class="ayuda" id="punto-texto">Apropa el plànol fins a veure les parcel·les del Cadastre i fes clic dins la teva.</p>
+      <div class="parcela oculto" id="parcela"></div>
       <input type="hidden" name="latitud" id="lat" required>
       <input type="hidden" name="longitud" id="lon" required>
       <input type="hidden" name="referencia_catastral" id="rc">
       <input type="hidden" name="parcela_catastro" id="rc-texto">
+      <input type="hidden" name="direccion" id="direccion">
     </div>
 
-    <div class="campos">
-      <label>Adreça o referència cadastral (opcional)<input type="text" name="direccion" id="direccion" placeholder="Carrer, número, municipi"></label>
+    <div class="campos panel">
+      <p class="paso">2 · A qui te l'enviem?</p>
       <label>Nom<input type="text" name="nombre" required autocomplete="name"></label>
       <label>Correu electrònic<input type="email" name="email" required autocomplete="email"></label>
-      <label>Telèfon<input type="tel" name="telefono" required autocomplete="tel"></label>
-      <label>Tens previst fer obres o un projecte en aquesta ubicació? (opcional)<select name="obras"><option value="">Tria una opció</option><option value="sí, en los próximos meses">Sí, en els propers mesos</option><option value="quizá, lo está valorando">Potser, ho estic valorant</option><option value="no, solo información">No, només vull informació</option></select></label>
+      <label>Telèfon <span class="opc">(opcional)</span><input type="tel" name="telefono" autocomplete="tel"></label>
+      <fieldset class="chips"><legend>Per a què el vols? <span class="opc">(opcional)</span></legend><label class="chip"><input type="radio" name="obras" value="comprar"><span>Comprar</span></label><label class="chip"><input type="radio" name="obras" value="vender"><span>Vendre</span></label><label class="chip"><input type="radio" name="obras" value="construir o reformar"><span>Construir o reformar</span></label><label class="chip"><input type="radio" name="obras" value="informarme"><span>Només informar-me</span></label></fieldset>
+      <details class="comentario"><summary>Afegir un comentari <span class="opc">(opcional)</span></summary><textarea name="comentario" rows="3" placeholder="El que t'agradaria fer, terminis, dubtes…"></textarea></details>
       <input type="hidden" name="entrega" value="email">
       <input type="hidden" name="idioma_ficha" value="castellano">
-      <p class="ayuda">De moment, el vídeo-informe es lliura en castellà.</p>
       <input type="hidden" name="idioma_web" value="catalán">
-      <label>Hi ha alguna cosa que hàgim de saber? (opcional)<textarea name="comentario" rows="3" placeholder="Què t'agradaria fer, si és per comprar o vendre…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He llegit i accepto la <a href="privacitat.html" target="_blank">política de privacitat</a>.</label>
-      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Vull rebre novetats i casos d'URBIABLE per correu electrònic (opcional).</label>
+      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Vull rebre novetats i casos d'URBIABLE per correu.</label>
       <p class="error" id="error" role="alert"></p>
-      <button type="submit" class="boton">Demana el meu vídeo-informe</button>
-      <p class="ayuda">No es paga res: el vídeo-informe és GRATIS fins al 20 de novembre (després, 19&nbsp;€, IVA inclòs). T'ho enviarem per correu tan aviat com estigui llest. El vídeo-informe és informatiu.</p>
+      <button type="submit" class="boton">Demanar el meu vídeo-informe gratis</button>
+      <ul class="garantias"><li>Gratis fins al 20 de novembre; després, 19&nbsp;€</li><li>Vídeo 3D i PDF amb dades, fonts i conclusions</li><li>Te l'enviem per correu. Sense compromís</li></ul>
     </div>
   </form>
 </section>
@@ -186,6 +187,6 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="../assets/mapa.js?v=20261113b"></script>
+<script src="../assets/mapa.js?v=20261113c"></script>
 </body>
 </html>

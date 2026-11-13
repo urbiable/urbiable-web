@@ -143,3 +143,31 @@ select { font: 16px "DM Sans", sans-serif; padding: 12px 14px; border: 1px solid
   .sugerencias, .parcela { transition: opacity 150ms ease; }
   @starting-style { .sugerencias, .parcela { transform: none; } }
 }
+
+/* formulario de pedido · columna del plano */
+.paso { font-size: 14px; font-weight: 700; letter-spacing: .02em; color: var(--verde-oscuro); margin: 0 0 4px; }
+.ayuda.arriba { margin: 0 0 12px; }
+#mapa { height: 460px; }
+.leaflet-container { font-family: "DM Sans", system-ui, sans-serif; }
+.leaflet-bar, .leaflet-control-layers { border: 1px solid var(--linea) !important; border-radius: 12px !important; box-shadow: 0 2px 8px rgba(25,25,15,.08) !important; overflow: hidden; }
+.leaflet-bar a { width: 36px !important; height: 36px !important; line-height: 36px !important; color: var(--tinta) !important; }
+.leaflet-bar a:hover { background: #ECEDE2 !important; }
+.boton-ubicacion { display: grid; place-items: center; width: 38px; height: 38px; padding: 0; background: #fff; color: var(--verde-oscuro); cursor: pointer; }
+.boton-ubicacion:hover { background: #ECEDE2; }
+.boton-ubicacion:disabled { opacity: .5; cursor: progress; }
+.leaflet-control-attribution { font-size: 10px !important; background: rgba(255,255,255,.75) !important; border-radius: 8px 0 0 0; }
+.parcela .inmuebles { display: grid; gap: 6px; margin-top: 10px; font-weight: 600; font-size: 14px; }
+.parcela .inmuebles select { font-weight: 400; font-size: 15px; width: 100%; }
+.parcela .uso { color: var(--gris); font-size: 14px; }
+.chips { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips legend { padding: 0; margin-bottom: 6px; font-size: 15px; font-weight: 500; }
+.chip { display: inline-flex; font-size: 14px; font-weight: 500; }
+.chip input { position: absolute; opacity: 0; pointer-events: none; }
+.chip span { padding: 8px 14px; border: 1px solid var(--verde-claro); border-radius: 999px; background: #fff; cursor: pointer; }
+.chip input:checked + span { background: var(--verde); border-color: var(--verde); color: #fff; }
+.chip input:focus-visible + span { outline: 2px solid var(--verde); outline-offset: 2px; }
+.opc { font-weight: 400; color: var(--gris); }
+.comentario summary { cursor: pointer; font-size: 15px; font-weight: 500; }
+.comentario textarea { width: 100%; margin-top: 8px; }
+.garantias { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 4px; font-size: 14px; color: var(--gris); }
+.garantias li::before { content: '✓ '; color: var(--verde); font-weight: 700; }

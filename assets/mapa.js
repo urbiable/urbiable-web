@@ -8,7 +8,7 @@
   const TEXTOS = {
     es: {
       osm: "© colaboradores de OpenStreetMap", pnoa: "PNOA cedido por © Instituto Geográfico Nacional", cat: "Parcelario © Dirección General del Catastro",
-      plano: "Plano catastral", callejero: "Callejero", foto: "Foto aérea", parcelas: "Parcelas del Catastro",
+      plano: "Plano catastral", callejero: "Callejero", foto: "Foto aérea", parcelas: "Parcelas del Catastro", edificios: "Detalle de edificios",
       marcado: "Punto marcado. Puedes arrastrarlo para afinar.", buscandoParcela: "Buscando la parcela en el Catastro…",
       fuera: "Ese punto no cae dentro de ninguna parcela del Catastro (puede ser la calle o una zona con catastro foral). Si es correcto, puedes enviarlo igualmente.",
       parcela: "Parcela catastral", sinCatastro: "No se pudo consultar el Catastro ahora. Tu punto queda marcado igualmente.",
@@ -17,11 +17,15 @@
       clic: "Ahora haz clic exactamente dentro de tu parcela.", numero: "Añade el número o haz clic exactamente dentro de tu parcela.",
       zona: "Acerca el plano a tu calle o añade la dirección completa.",
       noEncontrada: "No encontramos esa dirección. Prueba con otra, con la referencia catastral o mueve el plano.",
-      sinBuscar: "No se pudo buscar ahora. Mueve el plano a mano.", buscando: "Buscando…", sinPunto: "Marca primero tu punto en el plano."
+      sinBuscar: "No se pudo buscar ahora. Mueve el plano a mano.", buscando: "Buscando…", sinPunto: "Marca primero tu punto en el plano.",
+      acerca: "Acerca el plano hasta ver las parcelas del Catastro y haz clic dentro de la tuya.", dentro: "Ya ves las parcelas: haz clic dentro de la tuya.",
+      ubicacion: "Usar mi ubicación", sinUbicacion: "No hemos podido obtener tu ubicación. Busca la dirección o mueve el plano.", carto: "© CARTO",
+      inmuebles: "En esta parcela hay {n} inmuebles. ¿Cuál te interesa?", todo: "Toda la parcela o el edificio entero",
+      esc: "Esc.", planta: "Planta", puerta: "Puerta", unInmueble: "Inmueble", elegido: "Inmueble elegido"
     },
     ca: {
       osm: "© col·laboradors d'OpenStreetMap", pnoa: "PNOA cedit per © Institut Geogràfic Nacional", cat: "Parcel·lari © Direcció General del Cadastre",
-      plano: "Plànol cadastral", callejero: "Carrerer", foto: "Foto aèria", parcelas: "Parcel·les del Cadastre",
+      plano: "Plànol cadastral", callejero: "Carrerer", foto: "Foto aèria", parcelas: "Parcel·les del Cadastre", edificios: "Detall dels edificis",
       marcado: "Punt marcat. Pots arrossegar-lo per afinar.", buscandoParcela: "Buscant la parcel·la al Cadastre…",
       fuera: "Aquest punt no cau dins de cap parcel·la del Cadastre (pot ser el carrer o una zona amb cadastre foral). Si és correcte, pots enviar-lo igualment.",
       parcela: "Parcel·la cadastral", sinCatastro: "No s'ha pogut consultar el Cadastre ara. El teu punt queda marcat igualment.",
@@ -30,11 +34,15 @@
       clic: "Ara fes clic exactament dins de la teva parcel·la.", numero: "Afegeix el número o fes clic exactament dins de la teva parcel·la.",
       zona: "Apropa el plànol al teu carrer o afegeix l'adreça completa.",
       noEncontrada: "No trobem aquesta adreça. Prova'n una altra, amb la referència cadastral o mou el plànol.",
-      sinBuscar: "Ara no s'ha pogut buscar. Mou el plànol a mà.", buscando: "Buscant…", sinPunto: "Marca primer el teu punt al plànol."
+      sinBuscar: "Ara no s'ha pogut buscar. Mou el plànol a mà.", buscando: "Buscant…", sinPunto: "Marca primer el teu punt al plànol.",
+      acerca: "Apropa el plànol fins a veure les parcel·les del Cadastre i fes clic dins la teva.", dentro: "Ja veus les parcel·les: fes clic dins la teva.",
+      ubicacion: "Fer servir la meva ubicació", sinUbicacion: "No hem pogut obtenir la teva ubicació. Cerca l'adreça o mou el plànol.", carto: "© CARTO",
+      inmuebles: "En aquesta parcel·la hi ha {n} immobles. Quin t'interessa?", todo: "Tota la parcel·la o l'edifici sencer",
+      esc: "Esc.", planta: "Planta", puerta: "Porta", unInmueble: "Immoble", elegido: "Immoble triat"
     },
     en: {
       osm: "© OpenStreetMap contributors", pnoa: "PNOA courtesy of © Instituto Geográfico Nacional", cat: "Parcels © Spanish Directorate General for Cadastre",
-      plano: "Cadastral map", callejero: "Street map", foto: "Aerial photo", parcelas: "Cadastre parcels",
+      plano: "Cadastral map", callejero: "Street map", foto: "Aerial photo", parcelas: "Cadastre parcels", edificios: "Building detail",
       marcado: "Point marked. You can drag it to fine-tune.", buscandoParcela: "Looking up the parcel in the Cadastre…",
       fuera: "That point is not inside any Cadastre parcel (it may be the street or an area with a regional cadastre). If it is correct, you can still send it.",
       parcela: "Cadastral parcel", sinCatastro: "The Cadastre could not be reached right now. Your point is still marked.",
@@ -43,7 +51,11 @@
       clic: "Now click exactly inside your parcel.", numero: "Add the street number or click exactly inside your parcel.",
       zona: "Zoom in to your street or add the full address.",
       noEncontrada: "We could not find that address. Try another one, the cadastral reference, or move the map.",
-      sinBuscar: "Search is not available right now. Move the map by hand.", buscando: "Searching…", sinPunto: "First mark your point on the map."
+      sinBuscar: "Search is not available right now. Move the map by hand.", buscando: "Searching…", sinPunto: "First mark your point on the map.",
+      acerca: "Zoom in until you see the Cadastre plots and click inside yours.", dentro: "You can see the plots now: click inside yours.",
+      ubicacion: "Use my location", sinUbicacion: "We could not get your location. Search for the address or move the map.", carto: "© CARTO",
+      inmuebles: "There are {n} properties on this plot. Which one are you interested in?", todo: "The whole plot or building",
+      esc: "Stair", planta: "Floor", puerta: "Door", unInmueble: "Property", elegido: "Chosen property"
     }
   };
   const T = TEXTOS[IDIOMA] || TEXTOS.es;
@@ -68,19 +80,44 @@
     attribution: T.pnoa
   });
   const parcelas = L.tileLayer.wms(CATASTRO + "/Cartografia/WMS/ServidorWMS.aspx", {
-    layers: "Catastro", format: "image/png", transparent: true, minZoom: 15, maxZoom: 20, tileSize: 512, zIndex: 5,
+    layers: "MASA,PARCELA", format: "image/png", transparent: true, minZoom: 15, maxZoom: 20, tileSize: 512, zIndex: 5,
     attribution: T.cat
   }).addTo(mapa);
+  // detalle de edificaciones (plantas, rótulos): capa opcional, apagada para que el plano se lea limpio
+  const edificios = L.tileLayer.wms(CATASTRO + "/Cartografia/WMS/ServidorWMS.aspx", {
+    layers: "CONSTRU,TXTCONSTRU,TXTPARCELA", format: "image/png", transparent: true, minZoom: 17, maxZoom: 20, tileSize: 512, zIndex: 6,
+    attribution: T.cat
+  });
   L.control.layers(
     { [T.plano]: plano, [T.callejero]: callejero, [T.foto]: ortofoto },
-    { [T.parcelas]: parcelas },
+    { [T.parcelas]: parcelas, [T.edificios]: edificios },
     { position: "topright" }
   ).addTo(mapa);
+
+  const Ubicacion = L.Control.extend({ options: { position: "topleft" }, onAdd() {
+    const b = L.DomUtil.create("button", "leaflet-bar boton-ubicacion");
+    b.type = "button"; b.title = T.ubicacion; b.setAttribute("aria-label", T.ubicacion);
+    b.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>';
+    L.DomEvent.disableClickPropagation(b);
+    L.DomEvent.on(b, "click", () => {
+      ev("ubicacion_pedida");
+      if (!navigator.geolocation) { texto.textContent = T.sinUbicacion; return; }
+      b.disabled = true;
+      navigator.geolocation.getCurrentPosition(
+        pos => { b.disabled = false; ev("ubicacion_ok"); mapa.setView([pos.coords.latitude, pos.coords.longitude], 18); },
+        () => { b.disabled = false; ev("ubicacion_error"); texto.textContent = T.sinUbicacion; },
+        { enableHighAccuracy: true, timeout: 10000 });
+    });
+    return b;
+  } });
+  new Ubicacion().addTo(mapa);
 
   const icono = L.divIcon({ className: "", html: '<div style="width:22px;height:22px;border-radius:50%;background:#737D61;border:4px solid #fff;box-shadow:0 0 0 2px #737D61"></div>', iconSize: [22, 22], iconAnchor: [11, 11] });
   let punto = null, contorno = null, consulta = 0;
   const lat = document.getElementById("lat"), lon = document.getElementById("lon"), texto = document.getElementById("punto-texto");
   const caja = document.getElementById("parcela"), rc = document.getElementById("rc"), rcTexto = document.getElementById("rc-texto");
+  const guia = () => { if (!lat.value) texto.textContent = mapa.getZoom() >= 15 ? T.dentro : T.acerca; };
+  mapa.on("zoomend", guia);
   const direccion = document.getElementById("direccion"), error = document.getElementById("error");
   const fmtEs = n => n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const fmt = n => n.toLocaleString(IDIOMA === "en" ? "en-GB" : "es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -126,6 +163,7 @@
       rcTexto.value = ref + " · " + dir;
       if (direccion && !direccion.value) direccion.value = dir;
       dibuja(ref, n);
+      inmuebles(ref, n);
       ev("parcela_identificada");
     } catch (e) {
       if (n === consulta) { caja.textContent = T.sinCatastro; ev("catastro_error"); }
@@ -153,6 +191,50 @@
         rcTexto.value += " · " + fmtEs(parseFloat(area.textContent)) + " m²";
       }
     } catch (e) { /* el contorno es una ayuda visual; la referencia ya está */ }
+  }
+
+  // inmuebles de la parcela (Catastro): la referencia de 14 caracteres es la parcela o el edificio;
+  // cada inmueble (piso, local, plaza…) tiene la suya de 20. Si hay varios, el cliente elige cuál.
+  async function inmuebles(ref, n) {
+    try {
+      const d = await fetch(CALLEJERO + "Consulta_DNPRC?RefCat=" + ref).then(r => r.json());
+      if (n !== consulta) return;
+      const res = d.consulta_dnprcResult || {};
+      const lista = res.lrcdnp?.rcdnp || [];
+      const rc20 = x => x.rc.pc1 + x.rc.pc2 + x.rc.car + x.rc.cc1 + x.rc.cc2;
+      const uso = x => [x.debi?.luso, x.debi?.sfc ? fmt(parseFloat(x.debi.sfc)) + " m²" : ""].filter(Boolean).join(" · ");
+      if (lista.length > 1) {
+        const PL = { es: { "0": "Planta baja", "00": "Planta baja", "BJ": "Planta baja", "EN": "Entresuelo", "PR": "Principal", "AT": "Ático", "SA": "Sobreático", "ST": "Sótano", "SS": "Sótano", "-1": "Sótano 1", "-2": "Sótano 2", "-3": "Sótano 3" },
+                     ca: { "0": "Planta baixa", "00": "Planta baixa", "BJ": "Planta baixa", "EN": "Entresòl", "PR": "Principal", "AT": "Àtic", "SA": "Sobreàtic", "ST": "Soterrani", "SS": "Soterrani", "-1": "Soterrani 1", "-2": "Soterrani 2", "-3": "Soterrani 3" },
+                     en: { "0": "Ground floor", "00": "Ground floor", "BJ": "Ground floor", "EN": "Mezzanine", "PR": "First floor (principal)", "AT": "Attic", "SA": "Upper attic", "ST": "Basement", "SS": "Basement", "-1": "Basement 1", "-2": "Basement 2", "-3": "Basement 3" } }[IDIOMA] || {};
+        const planta = pt => PL[pt] || (/^\d+$/.test(pt) ? T.planta + " " + parseInt(pt, 10) : T.planta + " " + pt);
+        const loc = x => { const i = x.dt?.locs?.lous?.lourb?.loint || {};
+          return [i.es && T.esc + " " + i.es, i.pt && planta(i.pt), i.pu && T.puerta + " " + i.pu].filter(Boolean).join(" · ") || T.unInmueble; };
+        const vistos = {};
+        const orden = lista.slice().sort((a, b) => rc20(a).localeCompare(rc20(b)));
+        const lab = document.createElement("label"); lab.className = "inmuebles";
+        lab.append(T.inmuebles.replace("{n}", lista.length));
+        const sel = document.createElement("select"); sel.name = "inmueble";
+        sel.add(new Option(T.todo, ""));
+        orden.forEach(x => {   // dos inmuebles con la misma descripción se distinguen por su número de cargo del Catastro
+          let t = loc(x) + (uso(x) ? " — " + uso(x) : "");
+          vistos[t] = (vistos[t] || 0) + 1;
+          if (orden.filter(y => loc(y) + (uso(y) ? " — " + uso(y) : "") === t).length > 1) t += " (nº " + parseInt(x.rc.car, 10) + ")";
+          sel.add(new Option(t, rc20(x)));
+        });
+        sel.addEventListener("change", () => {
+          rc.value = sel.value || ref;
+          rcTexto.value = rcTexto.value.replace(/ · \[.*\]$/, "") + (sel.value ? " · [" + sel.selectedOptions[0].text + " · " + sel.value + "]" : "");
+          ev("inmueble_elegido", { tipo: sel.value ? "unidad" : "parcela", total: lista.length });
+        });
+        lab.appendChild(sel);
+        caja.appendChild(lab);
+        ev("inmuebles_mostrados", { total: lista.length });
+      } else if (res.bico?.bi) {
+        const u = uso(res.bico.bi);
+        if (u) { const s = document.createElement("span"); s.className = "uso"; s.textContent = u; caja.appendChild(document.createElement("br")); caja.appendChild(s); }
+      }
+    } catch (e) { /* si el Catastro no responde, se envía la parcela entera */ }
   }
 
   // buscador: CartoCiudad (IGN) entiende la dirección escrita y el callejero del Catastro da la parcela exacta.
@@ -381,7 +463,7 @@
     const datos = {
       nombre: campo("nombre").value, email: campo("email").value, telefono: campo("telefono").value || null,
       lat: +lat.value, lon: +lon.value, rc: rc.value || null, direccion: campo("direccion").value || null,
-      comentario: campo("comentario").value || null, obras: campo("obras")?.value || null, idioma: IDIOMA,
+      comentario: campo("comentario").value || null, obras: form.querySelector("[name=obras]:checked")?.value || campo("obras")?.value || null, idioma: IDIOMA,
       privacidad: campo("privacidad").checked, privacidad_version: PRIVACIDAD_VERSION,
       privacidad_texto: textoPrivacidad(), privacidad_fecha: new Date().toISOString(),
       novedades: campo("novedades").checked, sitio_web: campo("_honey").value

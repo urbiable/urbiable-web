@@ -20,7 +20,7 @@
 <link rel="alternate" hreflang="en" href="https://urbiable.com/en/">
 <link rel="alternate" hreflang="x-default" href="https://urbiable.com/">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="assets/estilo.css?v=20261113b">
+<link rel="stylesheet" href="assets/estilo.css?v=20261113c">
 <script src="/assets/medicion.js?v=20261113a"></script>
 </head>
 <body>
@@ -134,43 +134,45 @@
 <!-- 6 · Formulario -->
 <section id="pide" class="bloque">
   <p class="antetitulo">Pide tu vídeo-informe</p>
-  <h2>Marca tu punto sobre el plano</h2>
+  <h2>Elige tu parcela y te lo enviamos</h2>
   <form class="formulario" action="https://formsubmit.co/7dcedbdbd71cd810b9020081a1f869f8" method="POST" id="form">
     <input type="hidden" name="_subject" value="Nuevo pedido de vídeo-informe (pago desactivado: avisar cuando esté lista) · URBIABLE">
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_captcha" value="true">
     <input type="hidden" name="_next" value="https://urbiable.com/gracias.html">
     <input type="text" name="_honey" class="oculto" tabindex="-1" autocomplete="off">
-
     <div class="mapa-caja">
+      <p class="paso">1 · Encuentra tu parcela</p>
+      <p class="ayuda arriba">Escribe la dirección o la referencia catastral, o acerca el plano y haz clic dentro de tu parcela.</p>
       <div class="buscador">
         <input type="search" id="buscar" placeholder="Dirección, municipio o referencia catastral" autocomplete="off">
         <button type="button" id="buscar-boton" class="boton pequeño">Buscar</button>
       </div>
-      <div id="mapa" aria-label="Plano para marcar el punto"></div>
+      <div id="mapa" aria-label="Plano para elegir la parcela"></div>
       <p class="ayuda" id="punto-texto">Acerca el plano hasta ver las parcelas del Catastro y haz clic dentro de la tuya.</p>
-      <p class="parcela oculto" id="parcela"></p>
+      <div class="parcela oculto" id="parcela"></div>
       <input type="hidden" name="latitud" id="lat" required>
       <input type="hidden" name="longitud" id="lon" required>
       <input type="hidden" name="referencia_catastral" id="rc">
       <input type="hidden" name="parcela_catastro" id="rc-texto">
+      <input type="hidden" name="direccion" id="direccion">
     </div>
 
-    <div class="campos">
-      <label>Dirección o referencia catastral (opcional)<input type="text" name="direccion" id="direccion" placeholder="Calle, número, municipio"></label>
+    <div class="campos panel">
+      <p class="paso">2 · ¿A quién te lo enviamos?</p>
       <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
-      <label>Teléfono<input type="tel" name="telefono" required autocomplete="tel"></label>
-      <label>¿Tienes previsto hacer obras o un proyecto en esta ubicación? (opcional)<select name="obras"><option value="">Elige una opción</option><option value="sí, en los próximos meses">Sí, en los próximos meses</option><option value="quizá, lo está valorando">Quizá, lo estoy valorando</option><option value="no, solo información">No, solo quiero información</option></select></label>
+      <label>Teléfono <span class="opc">(opcional)</span><input type="tel" name="telefono" autocomplete="tel"></label>
+      <fieldset class="chips"><legend>¿Para qué lo quieres? <span class="opc">(opcional)</span></legend><label class="chip"><input type="radio" name="obras" value="comprar"><span>Comprar</span></label><label class="chip"><input type="radio" name="obras" value="vender"><span>Vender</span></label><label class="chip"><input type="radio" name="obras" value="construir o reformar"><span>Construir o reformar</span></label><label class="chip"><input type="radio" name="obras" value="informarme"><span>Solo informarme</span></label></fieldset>
+      <details class="comentario"><summary>Añadir un comentario <span class="opc">(opcional)</span></summary><textarea name="comentario" rows="3" placeholder="Lo que te gustaría hacer, plazos, dudas…"></textarea></details>
       <input type="hidden" name="entrega" value="email">
       <input type="hidden" name="idioma_ficha" value="castellano">
       <input type="hidden" name="idioma_web" value="castellano">
-      <label>¿Algo que debamos saber? (opcional)<textarea name="comentario" rows="3" placeholder="Qué te gustaría hacer, si es para comprar o vender…"></textarea></label>
       <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</label>
-      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email (opcional).</label>
+      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email.</label>
       <p class="error" id="error" role="alert"></p>
-      <button type="submit" class="boton">Pedir mi vídeo-informe</button>
-      <p class="ayuda">No se paga nada: el vídeo-informe es GRATIS hasta el 20 de noviembre (después, 19&nbsp;€, IVA incluido). Te lo enviaremos por email en cuanto esté listo. El vídeo-informe es informativo.</p>
+      <button type="submit" class="boton">Pedir mi vídeo-informe gratis</button>
+      <ul class="garantias"><li>Gratis hasta el 20 de noviembre; después, 19&nbsp;€</li><li>Vídeo 3D y PDF con datos, fuentes y conclusiones</li><li>Te lo enviamos por email. Sin compromiso</li></ul>
     </div>
   </form>
 </section>
@@ -185,6 +187,6 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/mapa.js?v=20261113b"></script>
+<script src="assets/mapa.js?v=20261113c"></script>
 </body>
 </html>
