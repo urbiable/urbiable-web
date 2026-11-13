@@ -463,12 +463,13 @@
     const datos = {
       nombre: campo("nombre").value, email: campo("email").value, telefono: campo("telefono").value || null,
       lat: +lat.value, lon: +lon.value, rc: rc.value || null, direccion: campo("direccion").value || null,
-      comentario: campo("comentario").value || null, obras: form.querySelector("[name=obras]:checked")?.value || campo("obras")?.value || null, idioma: IDIOMA,
+      comentario: campo("comentario").value || null, obras: [form.querySelector("[name=obras]:checked")?.value, form.querySelector("[name=perfil]:checked")?.value].filter(Boolean).join(" | ") || null,
+      perfil: form.querySelector("[name=perfil]:checked")?.value || null, idioma: IDIOMA,
       privacidad: campo("privacidad").checked, privacidad_version: PRIVACIDAD_VERSION,
       privacidad_texto: textoPrivacidad(), privacidad_fecha: new Date().toISOString(),
       novedades: campo("novedades").checked, sitio_web: campo("_honey").value
     };
-    ev("pedido_enviado", { con_parcela: !!rc.value, obras: datos.obras || "sin_respuesta", novedades: datos.novedades });
+    ev("pedido_enviado", { con_parcela: !!rc.value, inmueble: rc.value.length === 20, motivo: form.querySelector("[name=obras]:checked")?.value || "sin_respuesta", perfil: datos.perfil || "sin_respuesta", novedades: datos.novedades });
     const t0 = performance.now();
     let r = null;
     try {

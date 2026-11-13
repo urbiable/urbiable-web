@@ -162,14 +162,15 @@
       <p class="paso">2 · ¿A quién te lo enviamos?</p>
       <label>Nombre<input type="text" name="nombre" required autocomplete="name"></label>
       <label>Email<input type="email" name="email" required autocomplete="email"></label>
-      <label>Teléfono <span class="opc">(opcional)</span><input type="tel" name="telefono" autocomplete="tel"></label>
+      <label><span>Teléfono <span class="opc">(opcional)</span></span><input type="tel" name="telefono" autocomplete="tel"></label>
+      <fieldset class="chips"><legend>¿Quién eres? <span class="opc">(opcional)</span></legend><label class="chip"><input type="radio" name="perfil" value="particular"><span>Particular</span></label><label class="chip"><input type="radio" name="perfil" value="agente inmobiliario"><span>Agente inmobiliario (API)</span></label><label class="chip"><input type="radio" name="perfil" value="promotor o inversor"><span>Promotor o inversor</span></label><label class="chip"><input type="radio" name="perfil" value="arquitecto o técnico"><span>Arquitecto o técnico</span></label><label class="chip"><input type="radio" name="perfil" value="administrador de fincas"><span>Administrador de fincas</span></label><label class="chip"><input type="radio" name="perfil" value="otro"><span>Otro</span></label></fieldset>
       <fieldset class="chips"><legend>¿Para qué lo quieres? <span class="opc">(opcional)</span></legend><label class="chip"><input type="radio" name="obras" value="comprar"><span>Comprar</span></label><label class="chip"><input type="radio" name="obras" value="vender"><span>Vender</span></label><label class="chip"><input type="radio" name="obras" value="construir o reformar"><span>Construir o reformar</span></label><label class="chip"><input type="radio" name="obras" value="informarme"><span>Solo informarme</span></label></fieldset>
       <details class="comentario"><summary>Añadir un comentario <span class="opc">(opcional)</span></summary><textarea name="comentario" rows="3" placeholder="Lo que te gustaría hacer, plazos, dudas…"></textarea></details>
       <input type="hidden" name="entrega" value="email">
       <input type="hidden" name="idioma_ficha" value="castellano">
       <input type="hidden" name="idioma_web" value="castellano">
-      <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</label>
-      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> Quiero recibir novedades y casos de URBIABLE por email.</label>
+      <label class="opcion legal"><input type="checkbox" name="privacidad" value="acepto" required> <span>He leído y acepto la <a href="privacidad.html" target="_blank">política de privacidad</a>.</span></label>
+      <label class="opcion legal"><input type="checkbox" name="novedades" value="si"> <span>Quiero recibir novedades y casos de URBIABLE por email.</span></label>
       <p class="error" id="error" role="alert"></p>
       <button type="submit" class="boton">Pedir mi vídeo-informe gratis</button>
       <ul class="garantias"><li>Gratis hasta el 20 de noviembre; después, 19&nbsp;€</li><li>Vídeo 3D y PDF con datos, fuentes y conclusiones</li><li>Te lo enviamos por email. Sin compromiso</li></ul>
@@ -187,6 +188,6 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="assets/mapa.js?v=20261113c"></script>
+<script src="assets/mapa.js?v=20261113d"></script>
 </body>
 </html>
